@@ -1,0 +1,2 @@
+# EU-LIFE-2026---40_IDEJNIH-PROJEKTOV
+STRATEŠKI NAVIGATOR - 40_idejnih projektov za razpis EU LIFE 2026
