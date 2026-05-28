@@ -4812,8 +4812,11 @@ buildRanking();
 showView('landing');
 </script>
 <div id="cookie-banner" style="position:fixed; bottom:0; left:0; width:100%; background:#f8f9fa; padding:20px; text-align:center; box-shadow:0 -2px 10px rgba(0,0,0,0.1); z-index:9999; border-top: 1px solid #ddd;">
-        <p style="margin-bottom:10px; font-size:14px; color: #333;">Za analizo uporabe strani in izboljšanje uporabniške izkušnje uporabljamo orodje Microsoft Clarity. Ali dovolite uporabo piškotkov za statistiko?</p>
-        <button onclick="enableTracking()" style="background:#0d948c; color:#fff; padding:8px 20px; border:none; cursor:pointer; font-weight:bold; border-radius: 4px;">Sprejmi</button>
-    </div>
+    <p style="margin-bottom:10px; font-size:14px; color: #333;">Za analizo uporabe strani in izboljšanje uporabniške izkušnje uporabljamo orodje Microsoft Clarity. Ali dovolite uporabo piškotkov za statistiko?</p>
+    
+    <button onclick="enableTracking()" style="background:#0d948c; color:#fff; padding:8px 20px; border:none; cursor:pointer; font-weight:bold; border-radius: 4px; margin-right: 10px;">Sprejmi</button>
+    
+    <button onclick="document.getElementById('cookie-banner').style.display='none'" style="background:#e5e7eb; color:#374151; padding:8px 20px; border:none; cursor:pointer; font-weight:bold; border-radius: 4px;">Ne sprejmem</button>
+</div>
 </body>
 </html>       
