@@ -174,7 +174,32 @@
                 opacity: 0.85;
                 filter: brightness(1.15) drop-shadow(0 0 20px rgba(13, 148, 136, 0.15));
             }
-        }</style>
+        }
+@media print {
+    /* 1. Skrij gumb za tisk */
+    button[onclick="window.print()"] { 
+        display: none !important; 
+    }
+    
+    /* 2. Skrij levo navigacijo (tvoj <aside> element) */
+    aside { 
+        display: none !important; 
+    }
+    
+    /* 3. Raztegni glavno vsebino čez celo stran */
+    main {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important; /* Da se ne tiska tvoja siva mrežasta podlaga */
+    }
+
+    /* 4. Po želji skrij še header, če želiš res čisto stran */
+    header {
+        display: none !important;
+    }
+}
+</style>
   <script>
     function enableTracking() {
         (function(c,l,a,r,i,t,y){
