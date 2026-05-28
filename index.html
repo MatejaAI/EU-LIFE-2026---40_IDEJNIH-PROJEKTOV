@@ -181,22 +181,31 @@
         display: none !important; 
     }
     
-    /* 2. Skrij levo navigacijo (tvoj <aside> element) */
+    /* 2. Skrij levo navigacijo */
     aside { 
         display: none !important; 
     }
+
+    /* 3. Skrij header */
+    header {
+        display: none !important;
+    }
     
-    /* 3. Raztegni glavno vsebino čez celo stran */
-    main {
+    /* 4. Raztegni glavno vsebino in sprosti višino za več strani */
+    main, body, html {
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-        background: white !important; /* Da se ne tiska tvoja siva mrežasta podlaga */
+        background: white !important;
     }
 
-    /* 4. Po želji skrij še header, če želiš res čisto stran */
-    header {
-        display: none !important;
+    /* 5. Sprostitev kartic */
+    .card, .technical-grid {
+        height: auto !important;
+        overflow: visible !important;
     }
 }
 </style>
