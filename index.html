@@ -176,35 +176,36 @@
             }
         }
 @media print {
-    /* Skrijemo vse nezaželene elemente */
-    header, aside, button[onclick="window.print()"] { 
+    /* 1. Skrij gumb za tisk */
+    button[onclick="window.print()"] { 
+        display: none !important; 
+    }
+    
+    /* 2. Skrij levo navigacijo */
+    aside { 
         display: none !important; 
     }
 
-    /* Prisilimo celotno stran, da se obnaša kot navaden dokument */
-    html, body {
+    /* 3. Skrij header */
+    header {
+        display: none !important;
+    }
+    
+    /* 4. Raztegni glavno vsebino in sprosti višino za več strani */
+    main, body, html {
         height: auto !important;
         overflow: visible !important;
-        background: white !important;
-    }
-
-    /* Odklenemo main in vse notranje elemente */
-    main, .technical-grid {
         display: block !important;
-        height: auto !important;
-        min-height: auto !important;
-        overflow: visible !important;
         width: 100% !important;
-        position: static !important;
-        padding: 0 !important;
         margin: 0 !important;
+        padding: 0 !important;
         background: white !important;
     }
 
-    /* Če imaš elemente, ki so morda "odrezani" */
-    * {
+    /* 5. Sprostitev kartic */
+    .card, .technical-grid {
         height: auto !important;
-        min-height: auto !important;
+        overflow: visible !important;
     }
 }
 </style>
@@ -303,13 +304,13 @@
       <div class="mono text-[10px] tracking-[0.3em] text-inkdim">SINERGIJSKI INVESTICIJSKI POTENCIAL</div>
       <img src="https://assets.swoogo.com/uploads/medium/3495793-65bb7253d05be.jpg" alt="EU LIFE Logo" class="h-8 object-contain" />
       
-      <button onclick="window.print()" 
-        class="inline-flex items-center gap-2 bg-teal/10 hover:bg-teal/20 text-teal border border-teal/20 mono text-[10px] font-bold tracking-wider px-3.5 py-2 rounded-lg transition-all cursor-pointer h-9 whitespace-nowrap">
-    <span>NATISNI_STRAN</span>
+      <a href="ime_tvoje_datoteke.pdf" target="_blank" 
+   class="inline-flex items-center gap-2 bg-teal/10 hover:bg-teal/20 text-teal border border-teal/20 mono text-[10px] font-bold tracking-wider px-3.5 py-2 rounded-lg transition-all cursor-pointer h-9 whitespace-nowrap">
+    <span>PRENESI_PDF</span>
     <svg class="w-3.5 h-3.5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m3-6h4m-4 4h4m-8 6h10a2 2 0 002-2v-4a2 2 0 00-2-2H7a2 2 0 00-2 2v4a2 2 0 002 2z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
     </svg>
-</button>
+</a>
     </div>
   </header>
 
