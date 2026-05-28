@@ -175,39 +175,6 @@
                 filter: brightness(1.15) drop-shadow(0 0 20px rgba(13, 148, 136, 0.15));
             }
         }
-@media print {
-    /* 1. Skrij gumb za tisk */
-    button[onclick="window.print()"] { 
-        display: none !important; 
-    }
-    
-    /* 2. Skrij levo navigacijo */
-    aside { 
-        display: none !important; 
-    }
-
-    /* 3. Skrij header */
-    header {
-        display: none !important;
-    }
-    
-    /* 4. Raztegni glavno vsebino in sprosti višino za več strani */
-    main, body, html {
-        height: auto !important;
-        overflow: visible !important;
-        display: block !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: white !important;
-    }
-
-    /* 5. Sprostitev kartic */
-    .card, .technical-grid {
-        height: auto !important;
-        overflow: visible !important;
-    }
-}
 </style>
   <script>
     function enableTracking() {
