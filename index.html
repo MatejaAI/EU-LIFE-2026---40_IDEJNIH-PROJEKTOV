@@ -176,36 +176,35 @@
             }
         }
 @media print {
-    /* 1. Skrij gumb za tisk */
-    button[onclick="window.print()"] { 
-        display: none !important; 
-    }
-    
-    /* 2. Skrij levo navigacijo */
-    aside { 
+    /* Skrijemo vse nezaželene elemente */
+    header, aside, button[onclick="window.print()"] { 
         display: none !important; 
     }
 
-    /* 3. Skrij header */
-    header {
-        display: none !important;
-    }
-    
-    /* 4. Raztegni glavno vsebino in sprosti višino za več strani */
-    main, body, html {
+    /* Prisilimo celotno stran, da se obnaša kot navaden dokument */
+    html, body {
         height: auto !important;
         overflow: visible !important;
-        display: block !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
         background: white !important;
     }
 
-    /* 5. Sprostitev kartic */
-    .card, .technical-grid {
+    /* Odklenemo main in vse notranje elemente */
+    main, .technical-grid {
+        display: block !important;
         height: auto !important;
+        min-height: auto !important;
         overflow: visible !important;
+        width: 100% !important;
+        position: static !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: white !important;
+    }
+
+    /* Če imaš elemente, ki so morda "odrezani" */
+    * {
+        height: auto !important;
+        min-height: auto !important;
     }
 }
 </style>
