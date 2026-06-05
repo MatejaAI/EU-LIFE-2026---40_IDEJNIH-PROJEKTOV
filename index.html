@@ -2025,9 +2025,64 @@
           <span class="mono text-[10px] tracking-[0.3em] text-teal">SA //</span>
           <h3 class="text-2xl text-ink">Projektni self-assessment — sito razpisa</h3>
         </div>
-        <p class="text-sm text-inkdim leading-relaxed mb-6">Preden pregledaš idejne koncepte v <a href="#" onclick="document.querySelector('[data-global=ranking]')?.click();return false;" class="text-teal hover:underline font-medium">TOP 10 rangiranju</a>, preveri ali tvoji <strong class="text-ink">obstoječi, delujoči projekti</strong> izpolnjujejo minimalne pogoje <span class="eu-term">LIFE SAP<span class="eu-tip"><strong>SAP — Standard Action Project</strong><br>Glavni instrument LIFE programa za demonstracijo dokazanih rešitev. Zahteva TRL 6+ ob prijavi, merljiv okoljski učinek in replikabilnost na EU ravni. Rok 2026: 22. 9. 2026, 17:00 CET.<br><br><a href="https://cinea.ec.europa.eu/programmes/life_en" target="_blank" style="color:#0d9488">→ CINEA LIFE program</a></span></span> razpisa. Vsak projekt ki ga razmišljaš prijaviti mora prestati vseh 9 kategorij — sicer tvegaš zavrnitev še pred ocenjevanjem vsebine.</p>
+        <p class="text-sm text-inkdim leading-relaxed mb-6"><strong class="text-ink">Preden greš naprej — preveri svoje projekte.</strong> TOP 10 koncepti v naslednjem koraku so idejne zasnove. Preden jih primerjaš s svojimi, si odgovori: <em>ali projekt ki ga imam dejansko že deluje in imam dokazila?</em><br><br>
+        Za vsak projekt ki ga razmišljaš prijaviti na <span class="eu-term">LIFE 2026<span class="eu-tip"><strong>LIFE 2026 — SAP razpis</strong><br>Rok oddaje: <strong>22. 9. 2026, 17:00 CET</strong><br>Oddaja izključno prek EU F&amp;T Portala.<br><br><a href="https://cinea.ec.europa.eu/programmes/life_en" target="_blank" style="color:#0d9488">→ CINEA LIFE program</a><br><a href="https://lifeslovenija.si/kako-zaceti/" target="_blank" style="color:#0d9488">→ LifeSlovenija NCP</a></span></span> pojdi skozi spodnjih 9 vprašanj. Pri vsakem vprašanju so <strong class="text-ink">3 podvprašanja</strong> — obkljukaj vsako na katerega odgovarjaš z DA. <strong class="text-ink">Točka se šteje kot izpolnjena šele ko so vsa 3 obkljukana.</strong> Neobkljukane točke ti povedo točno kaj moraš urediti pred oddajo.</p>
 
-        <div id="sa-assessment" class="card rounded-xl mb-6 accent-l" style="border-left-color:#0d9488;overflow:visible;">
+        <!-- Vnos projekta -->
+        <div id="sa-project-input" class="card rounded-xl mb-5 accent-l" style="border-left-color:#0d9488;overflow:visible;">
+          <div class="px-6 pt-5 pb-2">
+            <div class="mono text-[9px] tracking-[0.2em] text-teal mb-1">KORAK 1 // OPIŠI SVOJ PROJEKT</div>
+            <p class="text-[12px] text-inkdim mb-4 leading-relaxed">Izpolni 3 polja — vprašalnik bo prikazoval tvoj projekt kot kontekst pri vsakem vprašanju.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-line">
+
+            <!-- Polje 1: Kaj tehnologija dela -->
+            <div class="px-6 py-4">
+              <label class="block mono text-[9px] tracking-[0.2em] text-teal mb-2">KAJ TEHNOLOGIJA DELA?</label>
+              <textarea id="sa-input-kaj" rows="3" placeholder="Npr. predeluje odpadno blato iz čistilnih naprav v gradbeni geocomposit z alkalizacijo in mikrobiološkimi aditivi."
+                class="w-full text-[12px] text-ink leading-relaxed resize-none outline-none bg-transparent placeholder:text-inkdim/50"
+                oninput="saUpdateContext()" style="min-height:64px;"></textarea>
+            </div>
+
+            <!-- Polje 2: Vhodni material -->
+            <div class="px-6 py-4">
+              <label class="block mono text-[9px] tracking-[0.2em] text-teal mb-2">KAJ JE VHODNI MATERIAL?</label>
+              <textarea id="sa-input-vhod" rows="3" placeholder="Npr. komunalno blato iz čistilnih naprav (ČN) z vsebnostjo suhe snovi 20–30 %."
+                class="w-full text-[12px] text-ink leading-relaxed resize-none outline-none bg-transparent placeholder:text-inkdim/50"
+                oninput="saUpdateContext()" style="min-height:64px;"></textarea>
+            </div>
+
+            <!-- Polje 3: Izhodni produkt -->
+            <div class="px-6 py-4">
+              <label class="block mono text-[9px] tracking-[0.2em] text-teal mb-2">KAJ JE IZHODNI PRODUKT?</label>
+              <textarea id="sa-input-izhod" rows="3" placeholder="Npr. geocomposit — gradbeni material za dnevno pokrivanje odlagališč in sanacijo degradiranih površin."
+                class="w-full text-[12px] text-ink leading-relaxed resize-none outline-none bg-transparent placeholder:text-inkdim/50"
+                oninput="saUpdateContext()" style="min-height:64px;"></textarea>
+            </div>
+
+          </div>
+
+          <!-- Kontekst preview -->
+          <div id="sa-context-bar" class="hidden px-6 py-3 border-t border-line" style="background:rgba(13,148,136,0.04);">
+            <div class="flex items-start gap-3 flex-wrap">
+              <span class="mono text-[9px] tracking-[0.2em] text-teal shrink-0 mt-0.5">TVOJ PROJEKT //</span>
+              <span id="sa-context-text" class="text-[12px] text-ink leading-relaxed"></span>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="px-6 py-4 border-t border-line flex items-center justify-between flex-wrap gap-3">
+            <p class="text-[11px] text-inkdim"><span id="sa-input-status">Izpolni vsa 3 polja za najboljši izkupiček — ali preskoči in oceni brez konteksta.</span></p>
+            <button onclick="saStartAssessment()"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg mono text-[10px] tracking-wider transition-all"
+              style="background:#0d9488;color:#fff;">
+              ZAČNI OCENJEVANJE →
+            </button>
+          </div>
+        </div>
+
+        <!-- Assessment card — skrit dokler ni zagnan -->
+        <div id="sa-assessment" class="card rounded-xl mb-6 accent-l hidden" style="border-left-color:#0d9488;overflow:visible;">
 
           <!-- Score bar -->
           <div class="flex items-center justify-between px-6 pt-5 pb-4 border-b border-line">
@@ -2038,6 +2093,7 @@
                 <span class="display text-xl text-inkdim leading-none">/ 9</span>
                 <span id="sa-verdict" class="mono text-[10px] tracking-wider px-3 py-1 rounded-full ml-3" style="background:#fef2f2;color:#b91c1c;">NI PRIPRAVLJEN</span>
               </div>
+              <div class="text-[11px] text-inkdim mt-1">Oceni za vsak projekt posebej — ne na splošno za IOT Ekogen.</div>
             </div>
             <div class="text-right hidden md:block">
               <div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-1">PRAG ZA PRIJAVO //</div>
@@ -2046,168 +2102,22 @@
             </div>
           </div>
 
+          <!-- Kontekst banner znotraj vprašalnika -->
+          <div id="sa-context-banner" class="hidden px-6 py-3 border-b border-line" style="background:rgba(13,148,136,0.06);">
+            <div class="flex items-start gap-3 flex-wrap">
+              <span class="mono text-[9px] tracking-[0.2em] text-teal shrink-0 mt-0.5">OCENJUJEM //</span>
+              <span id="sa-banner-text" class="text-[12px] text-ink leading-relaxed font-medium"></span>
+              <button onclick="saReset()" class="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg mono text-[9px] tracking-wider transition-all shrink-0" style="background:#fff;border:1px solid #0d9488;color:#0d9488;">← SPREMENI PROJEKT</button>
+            </div>
+          </div>
+
           <!-- Progress meter -->
           <div class="px-6 py-3 border-b border-line">
-            <div class="meter"><span id="sa-bar" style="width:0%;background:linear-gradient(90deg,#0d9488,#10b981)"></span></div>
+            <div class="meter"><span id="sa-bar" style="width:0%;background:linear-gradient(90deg,#d4af37,#10b981)"></span></div>
           </div>
 
           <!-- Checklist items -->
-          <div class="divide-y divide-line">
-
-            <!-- 1: TRL -->
-            <label class="elig-row flex items-start gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50/60 transition-colors">
-              <div class="shrink-0 mt-0.5">
-                <input type="checkbox" class="sa-check sr-only">
-                <div class="sa-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#0d9488">
-                  <svg class="sa-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 flex-wrap">
-                  <span class="text-[13px] font-semibold text-ink">1. Tehnološka zrelost — <span class="eu-term">TRL<span class="eu-tip"><strong>TRL — Technology Readiness Level</strong><br>EU standardizirana lestvica zrelosti tehnologije (1–9).<br><br><strong style="color:#ef4444">TRL 1–5</strong> — R&amp;D faza → LIFE ne financira<br><strong style="color:#d4af37">TRL 6</strong> — demo v pilotnem okolju → minimalni prag<br><strong style="color:#10b981">TRL 7</strong> — demo v operativnem okolju → idealno<br><strong style="color:#10b981">TRL 8</strong> — sistem kvalificiran → projektni cilj<br><br>Dokazilo: meritve, testni protokoli, fotografije, laboratorijska poročila.<br><a href="https://ec.europa.eu/research/participants/data/ref/h2020/wp/2014_2015/annexes/h2020-wp1415-annex-g-trl_en.pdf" target="_blank" style="color:#0d9488">→ EU TRL definicije (EK)</a></span></span> 6 ali višje</span>
-                  <span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:#ef44441a;color:#b91c1c">OBVEZNO</span>
-                </div>
-                <p class="text-[12px] text-inkdim mt-1 leading-relaxed">Tehnologija mora fizično obstajati in biti preizkušena v realnem ali relevantnem okolju — <strong class="text-ink">ne samo na papirju ali v laboratoriju</strong>. Potrebuješ merljive rezultate: meritve učinkovitosti, testne protokole, fotografije naprave v obratovanju. Čista R&amp;D ideja brez pilotnega testa <strong class="text-ink">ne gre skozi sito LIFE razpisa</strong>.</p>
-              </div>
-            </label>
-
-            <!-- 2: IP -->
-            <label class="elig-row flex items-start gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50/60 transition-colors">
-              <div class="shrink-0 mt-0.5">
-                <input type="checkbox" class="sa-check sr-only">
-                <div class="sa-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#0d9488">
-                  <svg class="sa-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 flex-wrap">
-                  <span class="text-[13px] font-semibold text-ink">2. Lastništvo ali licenca <span class="eu-term">IP<span class="eu-tip"><strong>IP — Intellectual Property (Intelektualna lastnina)</strong><br>CINEA preverja kdo je lastnik inovacije ki jo projekt demonstrira. Koordinator mora imeti:<br><br>▸ <strong>Patent</strong> — registrirana zaščita postopka ali naprave<br>▸ <strong>Ekskluzivna licenca</strong> — pisni dogovor z lastnikom IP<br>▸ <strong>Zaščiteno know-how</strong> — dokumentirani lastniški postopki<br><br>Brez jasnega IP lastništva CINEA oceni projekt kot tehnološko tveganje → nižja ocena pri kriteriju <em>Quality &amp; Innovation</em>.<br><a href="https://cinea.ec.europa.eu/programmes/life_en" target="_blank" style="color:#0d9488">→ CINEA LIFE pravila</a></span></span> za ključno tehnologijo</span>
-                  <span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:#ef44441a;color:#b91c1c">OBVEZNO</span>
-                </div>
-                <p class="text-[12px] text-inkdim mt-1 leading-relaxed">IOT Ekogen mora biti lastnik ali imetnik ekskluzivne licence za tehnologijo ki jo projekt demonstrira. <strong class="text-ink">Demonstracija tuje tehnologije brez pisnega dogovora</strong> pomeni, da koordinator ni pravi subjekt prijave — CINEA bo to odkril pri ocenjevanju. Preveri: patent, licenčna pogodba, lastniška formula ali postopek.</p>
-              </div>
-            </label>
-
-            <!-- 3: Demo lokacija -->
-            <label class="elig-row flex items-start gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50/60 transition-colors">
-              <div class="shrink-0 mt-0.5">
-                <input type="checkbox" class="sa-check sr-only">
-                <div class="sa-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#0d9488">
-                  <svg class="sa-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 flex-wrap">
-                  <span class="text-[13px] font-semibold text-ink">3. Identificirana demo lokacija z dostopom ≥ 5 let</span>
-                  <span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:#ef44441a;color:#b91c1c">OBVEZNO</span>
-                </div>
-                <p class="text-[12px] text-inkdim mt-1 leading-relaxed">Projekt potrebuje <strong class="text-ink">konkretno lokacijo</strong> kjer bo demo linija delovala vsaj toliko časa kot projekt traja. Lastništvo ni pogoj — zadostuje dolgoročna najemna pogodba ali <span class="eu-term">LoI<span class="eu-tip"><strong>LoI — Letter of Intent (Pismo o nameri)</strong><br>Formalni dokument s katerim organizacija potrdi interes za sodelovanje. Ni pravno zavezujoč kot pogodba, a CINEA ga zahteva kot dokaz resnosti. Mora vsebovati: ime organizacije, navedbo vloge, potrjene obveznosti (lokacija, material, finančni delež).<br><br>LoI se priloži vlogi kot Annex — brez njega vloga ni popolna.</span></span> lastnika lokacije. Potrebuješ: naslov lokacije, dokazilo o dostopu, oceno potrebnih dovoljenj.</p>
-              </div>
-            </label>
-
-            <!-- 4: Vhodni material -->
-            <label class="elig-row flex items-start gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50/60 transition-colors">
-              <div class="shrink-0 mt-0.5">
-                <input type="checkbox" class="sa-check sr-only">
-                <div class="sa-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#0d9488">
-                  <svg class="sa-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 flex-wrap">
-                  <span class="text-[13px] font-semibold text-ink">4. Zagotovljen vhodni material — dobavitelj z <span class="eu-term">LoI<span class="eu-tip"><strong>LoI dobavitelja</strong> mora vsebovati:<br>▸ Ime organizacije dobavitelja<br>▸ Vrsta in opis materiala<br>▸ Letne količine (t/leto ali m³/leto)<br>▸ Časovni okvir dobave (≥ trajanje projekta)<br>▸ Podpis zakonitega zastopnika<br><br>CINEA ocenjevalci preverijo ali je vhodni tok realno zagotovljen — brez LoI je projekt ocenjen kot tehnološko tvegan.</span></span></span>
-                  <span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:#d4af371a;color:#b45309">KLJUČNO</span>
-                </div>
-                <p class="text-[12px] text-inkdim mt-1 leading-relaxed">Identificirati moraš <strong class="text-ink">konkretnega dobavitelja</strong> vhodnega materiala (odpadni tekstil, plastika, blato, UCO olje…) z realno letno količino. Brez zagotovljenega vhodnega toka projekt nima osnove — CINEA oceni to kot kritično tveganje. Preveri: kdo je dobavitelj, koliko materiala letno, je pripravljen podpisati LoI?</p>
-              </div>
-            </label>
-
-            <!-- 5: Izhodni produkt -->
-            <label class="elig-row flex items-start gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50/60 transition-colors">
-              <div class="shrink-0 mt-0.5">
-                <input type="checkbox" class="sa-check sr-only">
-                <div class="sa-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#0d9488">
-                  <svg class="sa-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 flex-wrap">
-                  <span class="text-[13px] font-semibold text-ink">5. Definiran izhodni produkt — <span class="eu-term">CE<span class="eu-tip"><strong>CE — Conformité Européenne</strong><br>Označba CE pomeni, da produkt izpolnjuje zahteve EU harmonizacijske zakonodaje. Za gradbene materiale je obvezna po <strong>Uredbi o gradbenih proizvodih (CPR 305/2011)</strong>.<br><br>CINEA zahteva da izhodni produkt projekta izpolnjuje ali se poti k izpolnitvi EU standardov — sicer ni tržno prenosljiv in ne dosega <em>European Added Value</em>.</span></span> skladen ali pot do certifikacije</span>
-                  <span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:#d4af371a;color:#b45309">KLJUČNO</span>
-                </div>
-                <p class="text-[12px] text-inkdim mt-1 leading-relaxed">Izhodni produkt mora biti <strong class="text-ink">jasno definiran</strong> in mora izpolnjevati ali se aktivno poti k izpolnitvi EU standardov. Projekt ki producira material brez jasne certifikacijske poti ne dokazuje <em>close-to-market</em> statusa — kar je za LIFE SAP ključen kriterij. Preveri: kakšen je produkt, kateri EU standard se aplicira, kdo je ciljni kupec?</p>
-              </div>
-            </label>
-
-            <!-- 6: Okoljski učinek -->
-            <label class="elig-row flex items-start gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50/60 transition-colors">
-              <div class="shrink-0 mt-0.5">
-                <input type="checkbox" class="sa-check sr-only">
-                <div class="sa-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#0d9488">
-                  <svg class="sa-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 flex-wrap">
-                  <span class="text-[13px] font-semibold text-ink">6. Merljiv okoljski učinek s konkretnimi <span class="eu-term">KPI<span class="eu-tip"><strong>KPI — Key Performance Indicator</strong><br>CINEA zahteva kvantificirane, merljive okoljske učinke. Primeri sprejemljivih KPI za LIFE SAP:<br><br>▸ t CO₂eq prihranjena / leto<br>▸ t odpadkov preusmerjenih iz odlagališča / leto<br>▸ m³ vode prečiščene / leto<br>▸ ha degradiranih površin sanirano<br>▸ % zmanjšanje specifičnih emisij<br><br>KPI mora imeti <strong>izhodiščno vrednost (baseline)</strong> in <strong>ciljno vrednost</strong> — sicer ni merljiv.<br><a href="https://cinea.ec.europa.eu/programmes/life_en" target="_blank" style="color:#0d9488">→ CINEA LIFE monitoring zahteve</a></span></span>-ji</span>
-                  <span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:#ef44441a;color:#b91c1c">OBVEZNO</span>
-                </div>
-                <p class="text-[12px] text-inkdim mt-1 leading-relaxed">LIFE <strong class="text-ink">ni inovacijski program</strong> — je okoljski program. Vsak projekt mora dokazati konkreten, merljiv okoljski učinek s primerjavo baseline vs. cilj. Preveri: koliko CO₂ prihranimo, koliko odpadka preusmerimo, koliko vode prečistimo — in ali to znamo izmeriti in dokumentirati?</p>
-              </div>
-            </label>
-
-            <!-- 7: EU dodana vrednost -->
-            <label class="elig-row flex items-start gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50/60 transition-colors">
-              <div class="shrink-0 mt-0.5">
-                <input type="checkbox" class="sa-check sr-only">
-                <div class="sa-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#0d9488">
-                  <svg class="sa-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 flex-wrap">
-                  <span class="text-[13px] font-semibold text-ink">7. Evropska dodana vrednost — prenosljivost na ≥ 3 EU države</span>
-                  <span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:#ef44441a;color:#b91c1c">OBVEZNO</span>
-                </div>
-                <p class="text-[12px] text-inkdim mt-1 leading-relaxed">Projekt mora reševati problem ki <strong class="text-ink">obstaja v vsaj 3–5 EU državah</strong> in mora biti rešitev prenosljiva brez bistvenih prilagoditev. Čisto lokalni projekt (npr. "sanacija odlagališča v Celju") nima EU dodane vrednosti. Preveri: ali problem obstaja v Avstriji, Hrvaški, Češki? Ali bi lahko franšiziral rešitev v te države?<br><a href="https://cinea.ec.europa.eu/programmes/life_en" target="_blank" class="text-teal hover:underline text-[11px]">→ CINEA definicija EU Added Value</a></p>
-              </div>
-            </label>
-
-            <!-- 8: Konzorcij -->
-            <label class="elig-row flex items-start gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50/60 transition-colors">
-              <div class="shrink-0 mt-0.5">
-                <input type="checkbox" class="sa-check sr-only">
-                <div class="sa-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#0d9488">
-                  <svg class="sa-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 flex-wrap">
-                  <span class="text-[13px] font-semibold text-ink">8. Identificiran konzorcijski partner iz druge <span class="eu-term">EU države<span class="eu-tip"><strong>Konzorcij LIFE SAP</strong><br>LIFE SAP ne zahteva formalno konzorcija — en prijavitelj je dovolj za eligibility. Ampak:<br><br>▸ Konzorcij z ≥ 2 državami dvigne oceno pri <em>Consortium &amp; Capacity</em> (+15 % teže)<br>▸ Partner iz druge EU države dokazuje <em>European Added Value</em><br>▸ Partner prevzame del lastnega deleža → razreši FCC problem IOT Ekogen<br><br>Priporočeni profil partnerja: zbiralec materiala, akademska institucija za validacijo, ali replikacijski partner iz ciljne regije.</span></span></span>
-                  <span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:#d4af371a;color:#b45309">PRIPOROČENO</span>
-                </div>
-                <p class="text-[12px] text-inkdim mt-1 leading-relaxed">Ni formalno obvezno za oddajo, a <strong class="text-ink">praktično obvezno za uspeh</strong>. Partner iz druge EU države dokazuje prenosljivost, pokriva šibko točko FCC IOT Ekogen in krepi konzorcijsko oceno. Preveri: kdo v EU ima interes za tvojo rešitev — zbiralci, komunalna podjetja, akademske institucije?<br><a href="https://lifeslovenija.si/kako-zaceti/" target="_blank" class="text-teal hover:underline text-[11px]">→ LifeSlovenija — iskanje partnerjev</a></p>
-              </div>
-            </label>
-
-            <!-- 9: Poslovni model -->
-            <label class="elig-row flex items-start gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50/60 transition-colors">
-              <div class="shrink-0 mt-0.5">
-                <input type="checkbox" class="sa-check sr-only">
-                <div class="sa-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#0d9488">
-                  <svg class="sa-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-3 flex-wrap">
-                  <span class="text-[13px] font-semibold text-ink">9. Vzdržen poslovni model po koncu <span class="eu-term">LIFE financiranja<span class="eu-tip"><strong>After-LIFE Plan</strong><br>CINEA zahteva v Part B vloge eksplicitni načrt kaj se zgodi po koncu projekta. Sprejemljivi modeli:<br><br>▸ <strong>Prodaja produkta</strong> — pozitivni ROI iz prodaje izhodnega materiala<br>▸ <strong>Storitev / SaaS</strong> — naročniški model za digitalne rešitve<br>▸ <strong>Franšiza</strong> — licenciranje tehnologije replikacijskim partnerjem<br>▸ <strong>Javno naročilo</strong> — rešitev postane standard za komunalne storitve<br><br>Projekt ki nima After-LIFE plana = dotacijska odvisnost → CINEA znižuje oceno pri <em>Cost-effectiveness</em>.</span></span></span>
-                  <span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:#d4af371a;color:#b45309">KLJUČNO</span>
-                </div>
-                <p class="text-[12px] text-inkdim mt-1 leading-relaxed">LIFE ni trajno financiranje — projekt mora po koncu delovati samostojno. <strong class="text-ink">CINEA oceni cost-effectiveness</strong> (20 % teže) tudi na osnovi After-LIFE plana. Preveri: ali bo projekt po koncu financiranja ustvarjal prihodke iz prodaje produkta, storitve ali franšiznih licenc? Kdaj je dosežena točka preloma?</p>
-              </div>
-            </label>
-
-          </div><!-- /divide-y -->
+          <div class="divide-y divide-line" id="sa-items"></div>
 
           <!-- Rezultat -->
           <div id="sa-result-bar" class="px-6 py-4 rounded-b-xl transition-all" style="background:#fef2f2;border-top:1px solid #E2E8F0;">
@@ -2234,69 +2144,272 @@
 
         </div><!-- /sa-assessment -->
 
+        <!-- JS za vnos projekta -->
+        <script>
+        function saUpdateContext() {
+          var kaj   = (document.getElementById('sa-input-kaj')   || {}).value || '';
+          var vhod  = (document.getElementById('sa-input-vhod')  || {}).value || '';
+          var izhod = (document.getElementById('sa-input-izhod') || {}).value || '';
+          var filled = [kaj, vhod, izhod].filter(function(s){ return s.trim().length > 0; }).length;
+          var bar = document.getElementById('sa-context-bar');
+          var txt = document.getElementById('sa-context-text');
+          var status = document.getElementById('sa-input-status');
+          if (filled === 0) {
+            if (bar) bar.classList.add('hidden');
+          } else {
+            var parts = [];
+            if (kaj.trim())   parts.push('\ud83d\udd27 ' + kaj.trim());
+            if (vhod.trim())  parts.push('\ud83d\udce6 Vhod: ' + vhod.trim());
+            if (izhod.trim()) parts.push('\ud83c\udfaf Izhod: ' + izhod.trim());
+            if (txt) txt.textContent = parts.join(' \u2022 ');
+            if (bar) bar.classList.remove('hidden');
+          }
+          if (status) {
+            if (filled === 3) {
+              status.textContent = 'Projekt opisan \u2014 klikni Začni ocenjevanje.';
+              status.style.color = '#0d9488';
+            } else if (filled > 0) {
+              status.textContent = 'Se ' + (3 - filled) + ' ' + (3 - filled === 1 ? 'polje' : 'polji') + ' za popoln kontekst.';
+              status.style.color = '#b45309';
+            } else {
+              status.textContent = 'Izpolni vsa 3 polja za najboljsi izkopiček — ali preskoči in oceni brez konteksta.';
+              status.style.color = '';
+            }
+          }
+        }
+
+        function saStartAssessment() {
+          var inputCard  = document.getElementById('sa-project-input');
+          var assessment = document.getElementById('sa-assessment');
+          var banner     = document.getElementById('sa-context-banner');
+          var bannerTxt  = document.getElementById('sa-banner-text');
+          var kaj   = (document.getElementById('sa-input-kaj')   || {}).value || '';
+          var vhod  = (document.getElementById('sa-input-vhod')  || {}).value || '';
+          var izhod = (document.getElementById('sa-input-izhod') || {}).value || '';
+          // Build banner text
+          var parts = [];
+          if (kaj.trim())   parts.push(kaj.trim());
+          if (vhod.trim())  parts.push('Vhod: ' + vhod.trim());
+          if (izhod.trim()) parts.push('Izhod: ' + izhod.trim());
+          if (bannerTxt) bannerTxt.textContent = parts.length ? parts.join(' \u2022 ') : 'Ocenjevanje brez opisanega projekta.';
+          if (banner) banner.classList.remove('hidden');
+          if (inputCard)  inputCard.classList.add('hidden');
+          if (assessment) {
+            assessment.classList.remove('hidden');
+            assessment.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+
+        function saReset() {
+          var inputCard  = document.getElementById('sa-project-input');
+          var assessment = document.getElementById('sa-assessment');
+          if (inputCard)  inputCard.classList.remove('hidden');
+          if (assessment) assessment.classList.add('hidden');
+          inputCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        </script>
+
         <!-- JS za SA checklist -->
         <script>
         (function(){
-          const checks  = document.querySelectorAll('#sa-assessment .sa-check');
-          const numEl   = document.getElementById('sa-score-num');
-          const barEl   = document.getElementById('sa-bar');
-          const verdict = document.getElementById('sa-verdict');
-          const resBar  = document.getElementById('sa-result-bar');
-          const resTitle= document.getElementById('sa-result-title');
-          const resBody = document.getElementById('sa-result-body');
+          var SA_ITEMS = [
+            {
+              id:'trl', badge:'OBVEZNO', badgeColor:'#b91c1c', badgeBg:'#ef44441a',
+              title:'1. Ali je tvoja tehnologija &#382;e preizku&#353;ena v praksi?',
+              tip:'<strong>TRL &#8212; stopnja tehnolo&#353;ke zrelosti (lestvica 1&#8211;9)</strong><br>LIFE zahteva minimalno TRL 6 ob prijavi.<br><br><strong style="color:#ef4444">TRL 1&#8211;5</strong> &#8212; samo na papirju ali v laboratoriju &#8594; LIFE NE financira<br><strong style="color:#d4af37">TRL 6</strong> &#8212; preizku&#353;ena v realnem okolju &#8594; minimalni prag za LIFE<br><strong style="color:#10b981">TRL 7</strong> &#8212; deluje v operativnem okolju &#8594; idealno za prijavo<br><strong style="color:#10b981">TRL 8</strong> &#8212; sistem dokon&#269;an in preverjen &#8594; cilj projekta<br><br><em>Primer: naprava za predelavo tekstila ki je &#382;e fizi&#269;no delovala in ima&#353; meritve &#8212; to je TRL 7.</em><br><a href="https://ec.europa.eu/research/participants/data/ref/h2020/wp/2014_2015/annexes/h2020-wp1415-annex-g-trl_en.pdf" target="_blank" style="color:#0d9488">&#8594; Uradne EU TRL definicije</a>',
+              why:'LIFE ne financira razvoja od ni&#269; &#8212; financira <strong>demonstracijo</strong> tega kar &#382;e deluje. &#268;e tehnologija &#353;e ni bila preizku&#353;ena zunaj laboratorija, vloge ne oddajaj.',
+              subs:[
+                { q:'Naprava ali sistem fizi&#269;no obstaja in sem ga &#382;e zagnal.', tip:'<strong>Fizi&#269;na naprava</strong> = ni na&#269;rt, ni simulacija, ni prototip na papirju. Mora biti realna naprava ali sistem ki je bil vsaj enkrat zagnan in je deloval.<br><em>Primer: IOT Ekogen ima napravo za izventermi&#269;no predelavo tekstila ki je fizi&#269;no obstajala in delovala.</em>' },
+                { q:'Imam meritve ali testne rezultate iz realnega delovanja (ne samo iz laboratorija).', tip:'<strong>Rezultati iz realnega okolja</strong> = meritve opravljene na dejanski napravi v dejanskih razmerah. Laboratorijske simulacije ne zadostujejo.<br><em>Primer: meritve toplotne prevodnosti (&lambda;) izolacijske plo&#353;&#269;e iz predelanega tekstila, opravljene na vzorcu iz dejanske naprave.</em>' },
+                { q:'Imam fotografije ali dokumentacijo naprave v obratovanju.', tip:'<strong>Dokumentacija</strong> = fotografije, video posnetki, poro&#269;ila, certifikati ali tehni&#269;ne specifikacije ki dokazujejo da naprava dejansko obstaja in deluje. CINEA ocenjevalci to preverijo pri FCC pregledu.<br><em>Primer: foto naprave med predelavo, testni protokol z datumom in podpisom odgovorne osebe.</em>' }
+              ]
+            },
+            {
+              id:'ip', badge:'OBVEZNO', badgeColor:'#b91c1c', badgeBg:'#ef44441a',
+              title:'2. Ali si ti lastnik ali imetnik licence za to tehnologijo?',
+              tip:'<strong>IP &#8212; intelektualna lastnina</strong><br>CINEA preverja kdo je dejanski lastnik inovacije ki jo projekt demonstrira.<br><br>Sprejemljivi dokazi lastni&#353;tva:<br>&#9656; <strong>Patent</strong> &#8212; registrirana za&#353;&#269;ita postopka ali naprave<br>&#9656; <strong>Ekskluzivna licen&#269;na pogodba</strong> &#8212; pisni dogovor z lastnikom<br>&#9656; <strong>Za&#353;&#269;iteno know-how</strong> &#8212; lastna dokumentirana formula ali postopek<br><br><em>Primer: IOT Ekogen ima lastno formulo aditivov Ekogen MI-10 in MI-15 &#8594; to je IP ki ga mora imeti pisno za&#353;&#269;itenega.</em>',
+              why:'&#268;e demonstrira&#353; tujo tehnologijo brez pisnega dogovora, CINEA ne more potrditi da si pravi prijavitelj. To je eden najpogostej&#353;ih razlogov za ni&#382;jo oceno.',
+              subs:[
+                { q:'Imam patent, za&#353;&#269;iteno formulo ali licen&#269;no pogodbo za klju&#269;ni del tehnologije.', tip:'<strong>Patent</strong> = registriran pri Uradu RS za intelektualno lastnino (URSIL) ali EPO (evropski patent).<br><strong>Licen&#269;na pogodba</strong> = pisni dogovor ki ti daje pravico do uporabe tuje tehnologije.<br><em>Primer: IOT Ekogen ima patent na izventermi&#269;ni postopek predelave &#8594; to je zadostno dokazilo lastni&#353;tva IP.</em>' },
+                { q:'Lastni&#353;tvo je pisno dokumentirano (ne samo ustni dogovor).', tip:'<strong>Pisna dokumentacija</strong> je klju&#269;na &#8212; ustni dogovori nimajo vrednosti pri CINEA. Zadostuje tudi e-mail dogovor pod pogojem da je ekspliciten in podpisan s strani obeh zastopnikov.<br><em>Primer: pogodba med IOT Ekogen in PRAIMGEST o pravicah do aditivov MI-10/MI-15.</em>' },
+                { q:'Nisem seznanjen z nobenim IP sporom ali zahtevkom tretje osebe na to tehnologijo.', tip:'<strong>IP spor</strong> = situacija kjer nekdo drug zahteva lastni&#353;tvo nad isto tehnologijo ali del nje. CINEA to preverja pred podpisom Grant Agreement.<br><em>&#268;e obstaja dvom o IP lastni&#353;tvu, ga razre&#353;i pred oddajo vloge &#8212; v fazi ocenjevanja ga ne more&#353; skriti.</em>' }
+              ]
+            },
+            {
+              id:'lokacija', badge:'OBVEZNO', badgeColor:'#b91c1c', badgeBg:'#ef44441a',
+              title:'3. Ali ve&#353; kje to&#269;no bo projekt potekal in ima&#353; zagotovljen dostop?',
+              tip:'<strong>Demo lokacija</strong> = fizi&#269;no mesto kjer bo naprava delovala med celotnim projektom (tipi&#269;no 5 let).<br><br>Lastni&#353;tvo ni pogoj. Zadostuje:<br>&#9656; Najemna pogodba za &ge; 5 let<br>&#9656; <strong>LoI</strong> (pismo o nameri) lastnika lokacije<br><br><em>Primer: lastna hala IOT Ekogen, najeta industrijska povr&#353;ina, ali prostor partnerskega komunalnega podjetja. Naslov mora biti konkreten &#8212; "nekje v Sloveniji" ne zadostuje.</em>',
+              why:'Brez konkretne lokacije CINEA ne more oceniti izvedljivosti projekta. Lokacija mora biti znana ob oddaji vloge.',
+              subs:[
+                { q:'Vem na kateri konkretni lokaciji (naslov!) bo projekt potekal.', tip:'<strong>Konkreten naslov</strong> = ulica, kraj, po&#353;tna &#353;tevilka. Ni dovolj re&#269;i "imamo prostor" &#8212; CINEA zahteva da lokacija obstaja in je dostopna.<br><em>Primer: "Industrijska cona &#381;alec, hala 3" ali "&#268;istilna naprava Celje, parcela 145/2".</em>' },
+                { q:'Imam zagotovljen dostop do te lokacije za vsaj 5 let (pogodba ali LoI).', tip:'<strong>Zagotovljen dostop</strong> = pisni dokument ki ti omogo&#269;a delovanje na lokaciji vsaj toliko &#269;asa kot traja projekt (54&#8211;60 mesecev).<br><em>Primer: najemna pogodba podpisana do 2031, ali LoI lastnika lokacije ki potrjuje dostop za &#269;as projekta.</em>' },
+                { q:'Poznam potrebna dovoljenja za to lokacijo in ocenjujem da so pridobljiva.', tip:'<strong>Dovoljenja</strong> = okoljevarstveno soglasje, gradbeno dovoljenje, IPPC dovoljenje (za industrijsko predelavo odpadkov).<br><em>Preveri pri ARSO ali na lokalni ob&#269;ini katera dovoljenja so potrebna.</em><br><a href="https://www.arso.gov.si/" target="_blank" style="color:#0d9488">&#8594; ARSO &#8212; dovoljenja</a>' }
+              ]
+            },
+            {
+              id:'material', badge:'KLJU&#268;NO', badgeColor:'#b45309', badgeBg:'#d4af371a',
+              title:'4. Ali ve&#353; kdo ti bo dobavljal surovino in v kak&#353;nih koli&#269;inah?',
+              tip:'<strong>Vhodni material</strong> = surovina ki jo projekt predeluje.<br><br>Primeri:<br>&#9656; Odpadni tekstil &#8594; dobavitelj: zbiralec odpadkov<br>&#9656; Komunalno blato &#8594; dobavitelj: &#269;istilna naprava<br>&#9656; Odpadno olje (UCO) &#8594; dobavitelj: restavracije, kuhinje<br>&#9656; Odpadna plastika &#8594; dobavitelj: komunalno podjetje<br><br><strong>LoI dobavitelja</strong> mora vsebovati: ime podjetja, vrsto materiala, letne koli&#269;ine (t/leto), &#269;asovni okvir.<br><br><em>CINEA preverja: je vhodni tok realno zagotovljen ali samo predviden? Brez LoI = tehnolo&#353;ko tveganje.</em>',
+              why:'Projekt brez zagotovljene surovine je kot tovarna brez materiala &#8212; CINEA oceni to kot kriti&#269;no tveganje izvedljivosti.',
+              subs:[
+                { q:'Vem kdo konkretno bo dobavljal surovino (ime podjetja ali organizacije).', tip:'"Zbiralec odpadkov iz Celja" ne zadostuje &#8212; <strong>ime podjetja</strong> mora biti konkretno.<br><em>Primer: Saubermacher Slovenija d.o.o. z deponijo sortiranega odpadnega tekstila v Celju, 800 t/leto.</em>' },
+                { q:'Dobavitelj mi je potrdil zadostne letne koli&#269;ine za celoten projekt.', tip:'<strong>Zadostne koli&#269;ine</strong> = toliko materiala da bo demo linija delovala s polno kapaciteto vsaj 70 % &#269;asa projekta.<br><em>Primer: demo linija za tekstil procesira 500 t/leto &#8594; dobavitelj mora potrditi vsaj 500 t/leto za 5 let.</em>' },
+                { q:'Dobavitelj je pripravljen to pisno potrditi (podpisati LoI).', tip:'<strong>LoI dobavitelja</strong> je Annex vloge &#8212; brez njega je vloga nepopolna. Ne sme biti vago &#8212; mora vsebovati konkretne &#353;tevilke in &#269;asovni okvir.<br><em>LoI ni pogodba &#8212; dobavitelja to ne zavezuje finan&#269;no, samo potrjuje interes in zmogljivost dobave.</em>' }
+              ]
+            },
+            {
+              id:'produkt', badge:'KLJU&#268;NO', badgeColor:'#b45309', badgeBg:'#d4af371a',
+              title:'5. Ali ve&#353; kaj nastane na koncu procesa in kdo bo to kupil ali uporabil?',
+              tip:'<strong>Izhodni produkt</strong> = kar nastane po predelavi.<br><br>Primeri:<br>&#9656; Izolacijska plo&#353;&#269;a iz odpadnega tekstila<br>&#9656; Geocomposit iz komunalnega blata<br>&#9656; Biodizl iz odpadnega olja<br>&#9656; Pre&#269;i&#353;&#269;ena voda za ponovno rabo<br><br><strong>CE ozna&#269;ba</strong> = evropski certifikat da je produkt varen in primeren za trg EU. Za gradbene materiale zahteva CPR 305/2011.<br><br><em>Primer: izolacijska plo&#353;&#269;a iz tekstila mora imeti meritve &lambda; in po&#382;arne odpornosti &#8212; to je pot do CE certifikata.</em>',
+              why:'Projekt ki ne vodi do tr&#382;no prenosljivega produkta nima "close-to-market" statusa &#8212; kar je za LIFE SAP klju&#269;en pogoj.',
+              subs:[
+                { q:'To&#269;no vem kaj je izhodni produkt in kak&#353;ne lastnosti ima.', tip:'<strong>Definiran produkt</strong> = zna&#353; opisati: ime produkta, fizikalne lastnosti, podro&#269;je uporabe in ciljni trg.<br><em>Primer: "Izolacijska plo&#353;&#269;a 50&#215;50&#215;5 cm iz recikliranega tekstila, &lambda;=0,038 W/mK, Rw&ge;45 dB, za gradbeno izolacijo sten".</em>' },
+                { q:'Izhodni produkt ima ali se aktivno poti k evropskemu certifikatu (CE ali EN standardu).', tip:'<strong>CE certifikat za gradbene materiale</strong> zahteva: testiranje po EN standardu, Izjavo o lastnostih (DoP) in CE ozna&#269;evanje.<br><em>Ni potrebno imeti certifikata ob oddaji &#8212; dovolj je dokumentiran na&#269;rt pridobitve med projektom.</em>' },
+                { q:'Imam identificiranega vsaj enega konkretnega kupca ali uporabnika tega produkta.', tip:'<strong>Ciljni kupec</strong> = konkretna organizacija ki bo produkt kupila ali uporabila po zaklju&#269;ku projekta. Mora biti navedena z LoI.<br><em>Primer: gradbeno podjetje Gradis d.d. ki bo testno vgradilo izolacijske plo&#353;&#269;e, ali komunalno podjetje ki bo geocomposit uporabilo za pokrivanje odlagali&#353;&#269;a.</em>' }
+              ]
+            },
+            {
+              id:'kpi', badge:'OBVEZNO', badgeColor:'#b91c1c', badgeBg:'#ef44441a',
+              title:'6. Ali zna&#353; v &#353;tevilkah povedati kaj projekt okoljsko dose&#382;e?',
+              tip:'<strong>KPI &#8212; klju&#269;ni kazalnik uspe&#353;nosti</strong><br>LIFE zahteva merljive okoljske rezultate &#8212; ne splo&#353;nih trditev.<br><br>Sprejemljivi primeri KPI:<br>&#9656; "Predelamo 500 t odpadnega tekstila letno"<br>&#9656; "Prihranimo 1.050 t CO&#8322; na leto"<br>&#9656; "Pre&#269;istimo 50.000 m&#179; odpadne vode letno"<br><br><em>"Zmanj&#353;amo okoljski odtis" &#8594; NI KPI. "Prihranimo 1.050 t CO&#8322;/leto" &#8594; je KPI.</em>',
+              why:'LIFE je okoljski program, ne podjetni&#353;ki. Vsak &#8364; dotacije mora biti opravi&#269;en z merljivim okoljskim u&#269;inkom.',
+              subs:[
+                { q:'Znam navesti vsaj 2 konkretni &#353;tevilki okoljskega u&#269;inka (npr. t CO&#8322;, t odpadka, m&#179; vode).', tip:'<strong>Konkretna &#353;tevilka</strong> = &#353;tevilo z enoto ki ga je mogo&#269;e preveriti.<br><em>Primer za tekstilni projekt: (1) 500 t/leto odpadnega tekstila preusmerjenih iz se&#382;iga; (2) 1.050 t CO&#8322;eq/leto prihrankov.</em>' },
+                { q:'Vem kak&#353;no je izhodi&#353;&#269;no stanje (baseline) s katerim bom primerjal rezultate.', tip:'<strong>Baseline</strong> = stanje pred projektom &#8212; brez projekta kaj se zgodi z materialom?<br><em>Primer: "Trenutno 100 % odpadnega tekstila gre v se&#382;ig, kar producira 2,1 t CO&#8322;eq/t. Po projektu: prihranek 1.050 t CO&#8322;eq/leto."</em>' },
+                { q:'Te meritve so izvedljive med projektom z razpolo&#382;ljivo opremo ali metodami.', tip:'<strong>Izvedljivost meritev</strong> = ali ima&#353; ali bo imel projekt opremo in metodologijo za merjenje KPI-jev?<br><em>Primer: IOT Ekogen ima lastno ISO 14044 LCA akreditacijo &#8212; zadostno za merjenje CO&#8322; prihrankov.</em>' }
+              ]
+            },
+            {
+              id:'eu', badge:'OBVEZNO', badgeColor:'#b91c1c', badgeBg:'#ef44441a',
+              title:'7. Ali bi ta re&#353;itev delovala tudi v drugi EU dr&#382;avi?',
+              tip:'<strong>Evropska dodana vrednost (EU Added Value)</strong><br>LIFE financira projekte ki re&#353;ujejo probleme na EU ravni &#8212; ne samo lokalne.<br><br><em>Primer DA: odpadni tekstil je problem v vsaki EU dr&#382;avi &#8594; IOT Ekogen re&#353;itev je prenosljiva povsod.<br>Primer NE: "Sanacija odlagali&#353;&#269;a v Celju" &#8594; lokalen projekt, ni EU dodane vrednosti.</em><br><a href="https://cinea.ec.europa.eu/programmes/life_en" target="_blank" style="color:#0d9488">&#8594; CINEA definicija EU Added Value</a>',
+              why:'Projekt ki re&#353;uje samo lokalni problem ne more dobiti EU financiranja. LIFE zahteva da je re&#353;itev ponovljiva in prenosljiva na vsaj 3 EU dr&#382;ave.',
+              subs:[
+                { q:'Ta okoljski problem obstaja tudi v vsaj 3 drugih EU dr&#382;avah.', tip:'<strong>Dokaz EU razse&#382;nosti</strong> = statisti&#269;ni podatki ki ka&#382;ejo da problem ni samo slovenski.<br><em>Primer: "V EU nastane 12,6 mio t tekstilnih odpadkov letno (Eurostat). Slovenija prispeva 0,3 % &#8594; 99,7 % problema je zunaj Slovenije."</em><br><a href="https://ec.europa.eu/eurostat" target="_blank" style="color:#0d9488">&#8594; Eurostat podatki</a>' },
+                { q:'Moja re&#353;itev bi delovala v drugi EU dr&#382;avi brez bistvenih tehni&#269;nih prilagoditev.', tip:'<strong>Prenosljivost</strong> = re&#353;itev ne zahteva lokalno specifi&#269;nih pogojev.<br><em>Primer: izventermi&#269;ni postopek IOT Ekogen deluje na me&#353;anem odpadnem tekstilu ki nastaja povsod v EU &#8594; nobenih tehni&#269;nih prilagoditev za AT, HR, CZ.</em>' },
+                { q:'Znam navesti konkretno regijo ali organizacijo v tujini ki bi jo lahko prevzela.', tip:'<strong>Replikacijska lokacija</strong> = konkretna regija ali organizacija v drugi EU dr&#382;avi ki bo po zaklju&#269;ku projekta prevzela re&#353;itev.<br><em>Primer: tekstilna regija Prato v Italiji, regija Brno v &#268;e&#353;ki, ali Katalonija v &#352;paniji.</em>' }
+              ]
+            },
+            {
+              id:'konzorcij', badge:'PRIPORO&#268;ENO', badgeColor:'#b45309', badgeBg:'#d4af371a',
+              title:'8. Ali ima&#353; partnerja iz druge EU dr&#382;ave ki aktivno sodeluje?',
+              tip:'<strong>Konzorcijski partner</strong> = organizacija iz druge EU dr&#382;ave ki aktivno prispeva k projektu.<br><br>Ni formalno obvezno &#8212; a prakti&#269;no klju&#269;no ker:<br>&#9656; Dvigne oceno pri Consortium &amp; Capacity za 15 %<br>&#9656; Partner prevzame del 40 % lastnega dele&#382;a &#8594; razre&#353;i finan&#269;ni problem<br><br>Tipi&#269;ni profili: zbiralec materiala v tujini, univerza za validacijo, komunalno podjetje za replikacijo.<br><a href="https://lifeslovenija.si/kako-zaceti/" target="_blank" style="color:#0d9488">&#8594; LifeSlovenija &#8212; iskanje partnerjev</a>',
+              why:'Projekt brez tujega partnerja je mogo&#269;e oddati, a ima bistveno ni&#382;je mo&#382;nosti uspeha. Partner hkrati dokazuje EU dimenzijo in razre&#353;i finan&#269;no tveganje.',
+              subs:[
+                { q:'Imam identificirano vsaj eno konkretno organizacijo iz druge EU dr&#382;ave.', tip:'"Nekdo v Avstriji" ne zadostuje &#8212; <strong>ime organizacije</strong> mora biti konkretno.<br><em>Primer: TU Wien, Institut f&#252;r Verfahrenstechnik (AT) za neodvisno validacijo rezultatov.</em>' },
+                { q:'Ta organizacija je pripravljena aktivno sodelovati &#8212; ne samo podpisati papir.', tip:'<strong>Aktivno sodelovanje</strong> = partner ima konkretno vlogo: validacija rezultatov, dobava materiala, replikacija re&#353;itve.<br><em>Partner ki samo podpi&#353;e LoI brez dejanske vloge CINEA prepozna in oceni negativno.</em>' },
+                { q:'Partner je finan&#269;no stabilen in bi prevzel del stro&#353;kov projekta.', tip:'<strong>Finan&#269;na stabilnost partnerja</strong> je klju&#269;na ker CINEA pri FCC preverja celoten konzorcij.<br><em>Preveri letno poro&#269;ilo partnerja na AMADEUS ali lokalni registrski bazi. Univerze in ve&#269;ja komunalna podjetja so praviloma stabilni.</em>' }
+              ]
+            },
+            {
+              id:'biznis', badge:'KLJU&#268;NO', badgeColor:'#b45309', badgeBg:'#d4af371a',
+              title:'9. Ali bo projekt po koncu LIFE financiranja &#382;ivel naprej sam?',
+              tip:'<strong>After-LIFE Plan</strong> = na&#269;rt za trajnost projekta po koncu financiranja.<br><br>Sprejemljivi modeli:<br>&#9656; <strong>Prodaja produkta</strong> &#8212; prihodki iz prodaje izhodnega materiala<br>&#9656; <strong>Storitev</strong> &#8212; pla&#269;ljive storitve predelave za komunalna podjetja<br>&#9656; <strong>Fran&#353;iza</strong> &#8212; licenciranje tehnologije partnerjem v tujini<br>&#9656; <strong>Javno naro&#269;ilo</strong> &#8212; re&#353;itev postane del komunalne storitve<br><br><em>Primer: IOT Ekogen prodaja izolacijske plo&#353;&#269;e gradbenim podjetjem &#8594; prihodek pokrije stro&#353;ke &#8594; projekt je vzdr&#382;en.</em>',
+              why:'LIFE ni trajen vir financiranja. CINEA oceni "cost-effectiveness" (20 % te&#382;e) &#8212; projekt ki nima poslovnega modela dobi ni&#382;jo oceno.',
+              subs:[
+                { q:'Vem iz &#269;esa bo projekt ustvarjal prihodke po koncu LIFE financiranja.', tip:'<strong>Vir prihodkov</strong> mora biti konkreten.<br><em>Primer: "Izolacijske plo&#353;&#269;e iz recikliranega tekstila bomo prodajali po &#8364;8/m&#178;. Pri kapaciteti 500 t/leto = 250.000 m&#178; = &#8364;2 mio/leto prihodkov."</em>' },
+                { q:'Imam grobo oceno kdaj bodo prihodki pokrili stro&#353;ke (to&#269;ka preloma).', tip:'<strong>To&#269;ka preloma (break-even)</strong> = mesec/leto ko prihodki prvi&#269; pokrijejo vse stro&#353;ke brez dotacije.<br><em>CINEA ne zahteva natan&#269;nega izra&#269;una ob oddaji &#8212; zadostuje groba ocena. Primer: "Break-even v M18 po zaklju&#269;ku projekta."</em>' },
+                { q:'Imam vsaj 2 potencialna vira prihodkov po koncu projekta.', tip:'<strong>Dva vira prihodkov</strong> = manj&#353;e tveganje dotacijske odvisnosti &#8594; vi&#353;ja CINEA ocena.<br><em>Primer: (1) prodaja izolacijskih plo&#353;&#269; gradbenim podjetjem; (2) fran&#353;izne licence za replikacijo v AT, CZ in ES.</em>' }
+              ]
+            }
+          ];
 
-          checks.forEach(cb => {
-            cb.addEventListener('change', function(){
-              const box  = this.closest('label').querySelector('.sa-box');
-              const tick = this.closest('label').querySelector('.sa-tick');
-              if(this.checked){
-                box.style.background='#0d9488'; box.style.borderColor='#0d9488';
-                tick.classList.remove('hidden');
-              } else {
-                box.style.background=''; box.style.borderColor='#0d9488';
-                tick.classList.add('hidden');
-              }
-              update();
+          var container = document.getElementById('sa-items');
+          var numEl     = document.getElementById('sa-score-num');
+          var barEl     = document.getElementById('sa-bar');
+          var verdict   = document.getElementById('sa-verdict');
+          var resBar    = document.getElementById('sa-result-bar');
+          var resTitle  = document.getElementById('sa-result-title');
+          var resBody   = document.getElementById('sa-result-body');
+
+          SA_ITEMS.forEach(function(item, idx){
+            var html = '<div class="sa-group" data-group="'+idx+'">';
+            // Header &#8212; green circle HIDDEN by default, shown only when all 3 subs done
+            html += '<div class="flex items-start gap-4 px-6 py-4" style="background:#F8FAFC;border-bottom:1px solid #E2E8F0;">';
+            html += '<div class="shrink-0 mt-0.5" style="width:20px;min-width:20px;">';
+            html += '<div class="sa-main-indicator" style="display:none;">';
+            html += '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#0d9488"/><path d="M5.5 10.5l3 3 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            html += '</div></div>';
+            html += '<div class="flex-1 min-w-0">';
+            html += '<div class="flex items-start justify-between gap-3 flex-wrap">';
+            html += '<span class="text-[13px] font-bold text-ink eu-term">'+item.title+'<span class="eu-tip">'+item.tip+'</span></span>';
+            html += '<span class="shrink-0 mono text-[9px] tracking-wider px-2 py-0.5 rounded" style="background:'+item.badgeBg+';color:'+item.badgeColor+'">'+item.badge+'</span>';
+            html += '</div>';
+            html += '<p class="text-[11.5px] text-inkdim mt-1 leading-relaxed" style="font-style:italic;">'+item.why+'</p>';
+            html += '</div></div>';
+            // Subquestions &#8212; same style as elig-box in to&#269;ka 00: w-5 h-5 rounded border-2 #d4af37
+            html += '<div class="divide-y divide-line" style="background:#fff;">';
+            item.subs.forEach(function(sub, si){
+              html += '<label class="flex items-start gap-4 px-8 py-3 cursor-pointer hover:bg-slate-50/60 transition-colors select-none">';
+              html += '<div class="shrink-0 mt-0.5"><input type="checkbox" class="sa-sub-check sr-only" data-group="'+idx+'" data-sub="'+si+'">';
+              // SAME as elig-box: w-5 h-5 rounded border-2 border-color:#d4af37
+              html += '<div class="sa-sub-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#d4af37;background:#fff;">';
+              html += '<svg class="sa-sub-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>';
+              html += '</div></div>';
+              html += '<div class="flex-1 min-w-0">';
+              html += '<span class="text-[12px] text-inkdim leading-relaxed eu-term">'+sub.q+'<span class="eu-tip">'+sub.tip+'</span></span>';
+              html += '</div></label>';
             });
+            html += '</div></div>';
+            container.insertAdjacentHTML('beforeend', html);
           });
 
-          function update(){
-            const total = checks.length;
-            const done  = Array.from(checks).filter(c=>c.checked).length;
-            const pct   = Math.round(done/total*100);
-            numEl.textContent = done;
-            barEl.style.width = pct + '%';
+          container.addEventListener('change', function(e){
+            var cb = e.target;
+            if(!cb.classList.contains('sa-sub-check')) return;
+            var box  = cb.closest('label').querySelector('.sa-sub-box');
+            var tick = cb.closest('label').querySelector('.sa-sub-tick');
+            if(cb.checked){
+              box.style.background='#f0fdf4'; box.style.borderColor='#10b981';
+              tick.classList.remove('hidden');
+            } else {
+              box.style.background='#fff'; box.style.borderColor='#d4af37';
+              tick.classList.add('hidden');
+            }
+            var gIdx      = parseInt(cb.dataset.group);
+            var groupSubs = container.querySelectorAll('.sa-sub-check[data-group="'+gIdx+'"]');
+            var allDone   = Array.from(groupSubs).every(function(c){ return c.checked; });
+            var indicator = container.querySelector('.sa-group[data-group="'+gIdx+'"] .sa-main-indicator');
+            if(indicator) indicator.style.display = allDone ? 'block' : 'none';
+            updateScore();
+          });
 
+          function updateScore(){
+            var total = SA_ITEMS.length, done = 0;
+            SA_ITEMS.forEach(function(_, gIdx){
+              var subs = container.querySelectorAll('.sa-sub-check[data-group="'+gIdx+'"]');
+              if(Array.from(subs).every(function(c){ return c.checked; })) done++;
+            });
+            var pct = Math.round(done/total*100);
+            numEl.textContent = done;
+            barEl.style.width = pct+'%';
             if(done === total){
               verdict.textContent='PROJEKT JE LIFE-READY ✓';
               verdict.style.background='#10b9811a'; verdict.style.color='#059669';
-              resBar.style.background='#10b9811a';
-              resTitle.style.color='#059669';
-              resTitle.textContent='Odlično — projekt izpolnjuje vse pogoje LIFE SAP razpisa.';
-              resBody.innerHTML='Naslednji korak: <strong>oglej si TOP 10 koncepte</strong> in preveri kateri najbližje ustreza tvojemu projektu, nato začni z <strong>EU LIFE Readiness Checklist</strong>.';
+              resBar.style.background='#f0fdf4'; resTitle.style.color='#059669';
+              resTitle.textContent='Odlicno — projekt izpolnjuje vse pogoje LIFE SAP razpisa!';
+              resBody.innerHTML='Naslednji korak: oglej si <a href="#" onclick="document.querySelector(&quot;[data-global=ranking]&quot;)?.click();return false;" class="text-teal hover:underline font-medium">TOP 10 koncepte</a> in preveri kateri najblizje ustreza tvojemu projektu, nato nadaljuj z <a href="#" onclick="document.querySelector(&quot;[data-global=checklist]&quot;)?.click();return false;" class="text-teal hover:underline font-medium">EU LIFE Readiness Checklist</a>.';
             } else if(done >= 6){
-              verdict.textContent='V PRIPRAVI';
+              verdict.textContent='V PRIPRAVI — '+done+'/9';
               verdict.style.background='#d4af371a'; verdict.style.color='#b45309';
-              resBar.style.background='#d4af371a';
-              resTitle.style.color='#b45309';
-              resTitle.textContent= done + ' / 9 izpolnjenih — projekt je blizu. Zapolni preostale vrzeli pred oddajo.';
-              resBody.innerHTML='Vrzeli v neobkljukanih kategorijah zahtevajo konkretne ukrepe (LoI, meritve, certifikacija). Kontaktiraj <a href="https://lifeslovenija.si/kako-zaceti/" target="_blank" class="text-teal hover:underline">LIFE Slovenija NCP</a> za brezplačen pregled koncepta.';
+              resBar.style.background='#fffbeb'; resTitle.style.color='#b45309';
+              resTitle.textContent='Projekt je blizu. Zapolni preostale vrzeli pred oddajo (rok: 22. 9. 2026).';
+              resBody.innerHTML='Neobkljukane to&#269;ke ti povedo to&#269;no kaj mora&#353; urediti. Kontaktiraj <a href="https://lifeslovenija.si/kako-zaceti/" target="_blank" class="text-teal hover:underline">LIFE Slovenija NCP</a> za brezpla&#269;en pregled koncepta.';
             } else if(done >= 3){
-              verdict.textContent='POTREBNA PRIPRAVA';
-              verdict.style.background='#f974161a'; verdict.style.color='#c2410c';
-              resBar.style.background='#f974161a';
-              resTitle.style.color='#c2410c';
-              resTitle.textContent= done + ' / 9 — projekt potrebuje 2–4 mesece priprave pred oddajo.';
-              resBody.innerHTML='Razmisli ali je rok 22. 9. 2026 dosegljiv. Če ne — pripravi projekt za <strong>razpisni krog 2027</strong>.';
+              verdict.textContent='POTREBNA PRIPRAVA — '+done+'/9';
+              verdict.style.background='#fff7ed'; verdict.style.color='#c2410c';
+              resBar.style.background='#fff7ed'; resTitle.style.color='#c2410c';
+              resTitle.textContent='Projekt potrebuje 2–4 mesece konkretne priprave.';
+              resBody.innerHTML='Razmisli ali je rok 22. 9. 2026 dosegljiv. Neobkljukane to&#269;ke so tvoj akcijski seznam. &#268;e roka ne dose&#382;e&#353; &#8212; pripravi projekt za <strong>razpisni krog 2027</strong>.';
             } else {
               verdict.textContent='NI PRIPRAVLJEN';
               verdict.style.background='#fef2f2'; verdict.style.color='#b91c1c';
-              resBar.style.background='#fef2f2';
-              resTitle.style.color='#b91c1c';
-              resTitle.textContent='Obkljukaj vsako kategorijo ki jo tvoj projekt izpolnjuje.';
-              resBody.textContent='Ko odgovoriš na vseh 9 kategorij, dobiš oceno pripravljenosti in naslednji korak.';
+              resBar.style.background='#fef2f2'; resTitle.style.color='#b91c1c';
+              resTitle.textContent='Obkljukaj podvprašanja za vsako kategorijo — vsaka obkljukana točka = en pogoj ki ga projekt izpolnjuje.';
+              resBody.textContent='Točka se šteje kot izpolnjena šele ko odgovoriš z DA na vsa 3 podvprašanja.';
             }
           }
+          updateScore();
         })();
         </script>
 
