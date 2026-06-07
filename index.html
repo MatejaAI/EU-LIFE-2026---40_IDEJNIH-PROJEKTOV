@@ -859,6 +859,119 @@
 .hint-box.warn .hint-label::before {
   content: '⚠';
 }
+/* danger hint box */
+.hint-box.danger {
+  background: linear-gradient(135deg, #fef2f2, #fff);
+  border-color: #fecaca;
+  border-left-color: #b91c1c;
+}
+.hint-box.danger .hint-label {
+  color: #b91c1c;
+}
+.hint-box.danger .hint-label::before {
+  content: '✕';
+}
+/* success hint box */
+.hint-box.ok {
+  background: linear-gradient(135deg, #f0fdf4, #fff);
+  border-color: #10b98133;
+  border-left-color: #10b981;
+}
+.hint-box.ok .hint-label {
+  color: #059669;
+}
+.hint-box.ok .hint-label::before {
+  content: '✓';
+}
+/* SA progressive input block */
+.sa-input-block {
+  display: none !important;
+  margin: 0 24px 16px 52px;
+  padding: 14px 16px 16px;
+  background: #F1F5F9;
+  border-radius: 10px;
+  border-left: 3px solid #d4af37;
+  animation: sa-slide-in .2s ease;
+  overflow: visible;
+}
+.sa-input-block.visible { display: block !important; }
+@keyframes sa-slide-in {
+  from { opacity:0; transform:translateY(-4px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.sa-input-block .sa-ib-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.sa-input-block .sa-ib-header-icon {
+  width: 16px; height: 16px;
+  color: #d4af37;
+  flex-shrink: 0;
+}
+.sa-input-block .sa-ib-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  color: #d4af37;
+  text-transform: uppercase;
+}
+.sa-input-block .sa-ib-grid {
+  display: grid;
+  gap: 12px;
+}
+.sa-input-block .sa-ib-field label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.sa-input-block input,
+.sa-input-block select,
+.sa-input-block textarea {
+  width: 100%;
+  padding: 8px 32px 8px 11px;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-family: 'Inter', sans-serif;
+  color: #0f172a;
+  background: #ffffff;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.sa-input-block input,
+.sa-input-block textarea {
+  padding-right: 11px;
+}
+.sa-input-block select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+.sa-input-block input:focus,
+.sa-input-block select:focus,
+.sa-input-block textarea:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 0 3px rgba(13,148,136,0.08);
+}
+.sa-input-block .sa-validation {
+  display: none;
+  margin-top: 10px;
+}
+.sa-partner-link:hover {
+  border-color: #d4af37 !important;
+  box-shadow: 0 2px 8px rgba(212,175,55,.15);
+}
 
 /* Eligibility assessment rows */
 .elig-row { transition: background .15s; }
@@ -2036,7 +2149,15 @@
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-line">
 
-            <!-- Polje 1: Kaj tehnologija dela -->
+            <!-- Polje 1: Naslov projekta -->
+            <div class="px-6 py-4">
+              <label class="block mono text-[9px] tracking-[0.2em] text-teal mb-2">NASLOV PROJEKTA</label>
+              <textarea id="sa-input-naziv" rows="3" placeholder="Npr. TEXTILE_CIRCO_TWIN — demonstracija recikliranja tekstila v certificirane gradbene materiale."
+                class="w-full text-[12px] text-ink leading-relaxed resize-none outline-none bg-transparent placeholder:text-inkdim/50"
+                oninput="saUpdateContext()" style="min-height:64px;"></textarea>
+            </div>
+
+            <!-- Polje 2: Kaj tehnologija dela -->
             <div class="px-6 py-4">
               <label class="block mono text-[9px] tracking-[0.2em] text-teal mb-2">KAJ TEHNOLOGIJA DELA?</label>
               <textarea id="sa-input-kaj" rows="3" placeholder="Npr. predeluje odpadno blato iz čistilnih naprav v gradbeni geocomposit z alkalizacijo in mikrobiološkimi aditivi."
@@ -2044,18 +2165,10 @@
                 oninput="saUpdateContext()" style="min-height:64px;"></textarea>
             </div>
 
-            <!-- Polje 2: Vhodni material -->
+            <!-- Polje 3: Vhodni material -->
             <div class="px-6 py-4">
               <label class="block mono text-[9px] tracking-[0.2em] text-teal mb-2">KAJ JE VHODNI MATERIAL?</label>
               <textarea id="sa-input-vhod" rows="3" placeholder="Npr. komunalno blato iz čistilnih naprav (ČN) z vsebnostjo suhe snovi 20–30 %."
-                class="w-full text-[12px] text-ink leading-relaxed resize-none outline-none bg-transparent placeholder:text-inkdim/50"
-                oninput="saUpdateContext()" style="min-height:64px;"></textarea>
-            </div>
-
-            <!-- Polje 3: Izhodni produkt -->
-            <div class="px-6 py-4">
-              <label class="block mono text-[9px] tracking-[0.2em] text-teal mb-2">KAJ JE IZHODNI PRODUKT?</label>
-              <textarea id="sa-input-izhod" rows="3" placeholder="Npr. geocomposit — gradbeni material za dnevno pokrivanje odlagališč in sanacijo degradiranih površin."
                 class="w-full text-[12px] text-ink leading-relaxed resize-none outline-none bg-transparent placeholder:text-inkdim/50"
                 oninput="saUpdateContext()" style="min-height:64px;"></textarea>
             </div>
@@ -2072,7 +2185,7 @@
 
           <!-- CTA -->
           <div class="px-6 py-4 border-t border-line flex items-center justify-between flex-wrap gap-3">
-            <p class="text-[11px] text-inkdim"><span id="sa-input-status">Izpolni vsa 3 polja za najboljši izkupiček — ali preskoči in oceni brez konteksta.</span></p>
+            <p class="text-[11px] text-inkdim"><span id="sa-input-status">Izpolni polja — vprašalnik bo prikazoval tvoj projekt kot kontekst pri vsakem vprašanju.</span></p>
             <button onclick="saStartAssessment()"
               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg mono text-[10px] tracking-wider transition-all"
               style="background:#0d9488;color:#fff;">
@@ -2133,16 +2246,92 @@
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                   LIFE SLOVENIJA NCP
                 </a>
-                <a href="#" onclick="document.querySelector('[data-global=ranking]')?.click();return false;"
-                   class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg mono text-[10px] tracking-wider transition-colors"
+                <!-- PDF export — always visible once assessment starts -->
+
+                <!-- KREIRAJ PROJEKT — opens modal prefilled from questionnaire -->
+                <button id="sa-cta-btn" onclick="saModalOpen()"
+                   class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg mono text-[10px] tracking-wider transition-all"
                    style="background:#0d9488;color:#fff;">
-                  TOP 10 KONCEPTI →
-                </a>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  KREIRAJ PROJEKT
+                </button>
               </div>
             </div>
           </div>
 
         </div><!-- /sa-assessment -->
+
+        <!-- ===== MODAL: KREIRAJ PROJEKT ===== -->
+        <!-- ===== MODAL: PROJEKTNI BRIEF PREGLED ===== -->
+        <div id="sa-modal" class="fixed inset-0 z-[9990] hidden" style="background:rgba(15,23,42,0.55);backdrop-filter:blur(4px);">
+          <div class="flex items-start justify-center min-h-screen p-4 pt-8">
+            <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl" style="max-height:90vh;overflow-y:auto;">
+
+              <!-- Header -->
+              <div class="flex items-center justify-between px-8 py-5 border-b border-line" style="background:linear-gradient(135deg,#F0FDFA,#ffffff);">
+                <div>
+                  <div class="mono text-[9px] tracking-[0.2em] text-teal mb-1">LIFE 2026 // PROJEKTNI BRIEF</div>
+                  <h3 class="text-2xl text-ink font-medium">Pregled projekta
+                    <span id="sa-modal-naziv" class="block text-base font-normal text-teal mt-0.5" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;"></span>
+                  </h3>
+                </div>
+                <button onclick="saModalClose()" class="w-8 h-8 rounded-full flex items-center justify-center text-inkdim hover:bg-slate-100 transition-colors text-lg">×</button>
+              </div>
+
+              <!-- Body: dynamic content injected by saModalOpen() -->
+              <div id="sa-modal-body" class="px-8 py-6 space-y-5 text-[13px] text-ink"></div>
+
+              <!-- Footer -->
+              <div class="px-8 py-5 border-t border-line flex flex-col sm:flex-row gap-3 justify-between" style="background:#F8FAFC;">
+                <button onclick="saModalClose()"
+                  class="px-4 py-2.5 rounded-lg mono text-[10px] tracking-wider text-inkdim transition-colors hover:bg-slate-100">
+                  ZAPRI
+                </button>
+                <div class="flex gap-3">
+                  <button onclick="saPrintBrief()"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg mono text-[10px] tracking-wider transition-all"
+                    style="background:#F1F5F9;color:#475569;border:1px solid #E2E8F0;">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    IZVOZI PDF BRIEF
+                  </button>
+                  <button onclick="saSaveFromQuestionnaire(); saModalClose();"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg mono text-[10px] tracking-wider transition-all"
+                    style="background:#0d9488;color:#fff;">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+                    SHRANI PROJEKT
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+                <!-- ===== MOJI PROJEKTI — cards section ===== -->
+        <div id="sa-projekti-section" class="hidden mt-6">
+          <div class="section-divider">
+            <span class="mono text-[10px] tracking-[0.3em] text-teal">MP //</span>
+            <h3 class="text-2xl text-ink">Moji projekti</h3>
+          </div>
+          <p class="text-sm text-inkdim mb-4 leading-relaxed">Shranjeni projektni briefi. Klikni na projekt za ogled ali izvoz PDF.</p>
+          <div id="sa-projekti-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+
+        <!-- Print styles za PDF brief -->
+        <style>
+        @media print {
+          body > *:not(#sa-print-area) { display: none !important; }
+          #sa-print-area { display: block !important; font-family: 'Inter', sans-serif; }
+          .sa-print-header { border-bottom: 2px solid #0d9488; padding-bottom: 12px; margin-bottom: 24px; }
+          .sa-print-section { margin-bottom: 20px; }
+          .sa-print-label { font-size: 9px; letter-spacing: 0.2em; color: #0d9488; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+          .sa-print-value { font-size: 13px; color: #0f172a; margin-bottom: 8px; }
+          .sa-print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+          .sa-print-footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid #E2E8F0; font-size: 10px; color: #94a3b8; }
+        }
+        #sa-print-area { display: none; }
+        </style>
+        <div id="sa-print-area"></div>
 
         <!-- JS za vnos projekta -->
         <script>
@@ -2196,6 +2385,11 @@
           if (inputCard)  inputCard.classList.add('hidden');
           if (assessment) {
             assessment.classList.remove('hidden');
+            // Show PDF export button
+            var pdfBtn = document.getElementById('sa-pdf-btn');
+            if (pdfBtn) pdfBtn.style.display = 'inline-flex';
+            // Re-run score after items are visible so ctaBtn updates correctly
+            setTimeout(function(){ if(window.saUpdateScoreGlobal) window.saUpdateScoreGlobal(); }, 50);
             assessment.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }
@@ -2207,6 +2401,598 @@
           if (assessment) assessment.classList.add('hidden');
           inputCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        // ── MODAL: pregled podatkov iz vprašalnika ───────────────
+        function saModalOpen() {
+          var g  = function(id){ return (document.getElementById(id)||{}).value||''; };
+          var gc = function(id){ return (document.getElementById(id)||{}).checked||false; };
+          var p  = saCollectFromQuestionnaire();
+
+          // Helper: render a data row
+          function row(label, value, full) {
+            if (!value || value === '-- izberi --') return '';
+            return '<div class="' + (full ? 'col-span-2' : '') + '">'
+              + '<div class="mono text-[9px] tracking-[0.15em] text-teal mb-1">' + label + '</div>'
+              + '<div class="text-[13px] text-ink font-medium leading-snug">' + (value||'—') + '</div>'
+              + '</div>';
+          }
+
+          // Set project title in modal header
+          var nazivVal = g('sa-input-naziv') || g('pf-naziv') || '';
+          var nazEl = document.getElementById('sa-modal-naziv');
+          if (nazEl) nazEl.textContent = nazivVal;
+
+          // Detect subprogram from keywords for rate calculation
+          var kajText = (g('sa-input-kaj') + ' ' + g('sa-input-vhod')).toLowerCase();
+          var detectedSub = 'ENV';
+          if (/klimat|podneb|co2|uhlji|ozon|adapt|suša/.test(kajText)) detectedSub = 'CLIMA';
+          if (/natura|habitat|vrst|biotop|ekosist|narav|ptič|sesalec/.test(kajText)) detectedSub = 'NAT';
+          var euRate  = detectedSub === 'CET' ? 95 : 60;
+          var ownRate = 100 - euRate;
+          // Parse proracun: support both 1.800.000 and 1800000 formats
+          var proracunStr = g('si-biz-proracun').trim();
+          var proracunRaw = proracunStr.replace(/\./g,'').replace(',','.'); // strip thousand dots
+          var proracunNum = parseFloat(proracunRaw) || 0;
+          // Format helper: display exactly as typed if raw string looks valid, else format number
+          var fmtAmt = function(n) {
+            if (!n) return '—';
+            return n.toLocaleString('sl-SI');
+          };
+          var euAmt  = proracunNum ? fmtAmt(Math.round(proracunNum * euRate  / 100)) : '—';
+          var ownAmt = proracunNum ? fmtAmt(Math.round(proracunNum * ownRate / 100)) : '—';
+
+          var body = '';
+
+          // 00 FINANČNI OKVIR
+          body += '<div style="margin-bottom:4px;">';
+          body += '<div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-3 pb-1 border-b border-line">00 // FINANČNI OKVIR</div>';
+          body += '<div class="grid grid-cols-3 gap-3">';
+          body += '<div class="rounded-lg p-3" style="background:#F0FDFA;border:1px solid #99f6e4;">'
+            + '<div class="mono text-[8.5px] tracking-widest text-teal mb-1">SKUPNI PRORAČUN</div>'
+            + '<div class="text-[18px] font-bold text-teal">'
+            + (proracunStr ? '€ ' + proracunStr : '—')
+            + '</div></div>';
+          body += '<div class="rounded-lg p-3" style="background:#F8FAFC;border:1px solid #E2E8F0;">'
+            + '<div class="mono text-[8.5px] tracking-widest text-inkdim mb-1">EU SOFINANCIRANJE (' + euRate + ' %)</div>'
+            + '<div class="text-[18px] font-bold text-ink">'
+            + (proracunNum ? '€ ' + euAmt : euRate + ' %')
+            + '</div></div>';
+          body += '<div class="rounded-lg p-3" style="background:#FFFBEB;border:1px solid #fde68a;">'
+            + '<div class="mono text-[8.5px] tracking-widest mb-1" style="color:#92400e;">LASTNI DELEŽ (' + ownRate + ' %)</div>'
+            + '<div class="text-[18px] font-bold" style="color:#92400e;">'
+            + (proracunNum ? '€ ' + ownAmt : ownRate + ' %')
+            + '</div></div>';
+          body += '</div></div>';
+
+          // 01 Tehnologija
+          body += '<div><div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-3 pb-1 border-b border-line">01 // TEHNOLOGIJA</div>';
+          body += '<div class="grid grid-cols-2 gap-4">';
+          body += row('KAJ TEHNOLOGIJA DELA', g('sa-input-kaj'), true);
+          body += row('VHODNI MATERIAL', g('sa-input-vhod'));
+          body += row('IZHODNI PRODUKT', g('si-prod-ime') || g('sa-input-izhod'));
+          body += row('TRL STOPNJA', g('si-trl-level'));
+          body += row('TRL DOKAZILO', g('si-trl-doc'));
+          body += '</div></div>';
+
+          // 02 IP
+          var ipTip = g('si-ip-tip'), ipRef = g('si-ip-ref');
+          if (ipTip && ipTip !== '-- izberi --') {
+            body += '<div><div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-3 pb-1 border-b border-line">02 // IP LASTNIŠTVO</div>';
+            body += '<div class="grid grid-cols-2 gap-4">';
+            body += row('TIP ZAŠČITE', ipTip);
+            body += row('REFERENČNA ŠT. / DOKUMENT', ipRef);
+            body += '</div></div>';
+          }
+
+          // 03 Lokacija
+          var lok = g('si-lok-naslov'), dostop = g('si-lok-dostop');
+          if (lok) {
+            body += '<div><div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-3 pb-1 border-b border-line">03 // DEMO LOKACIJA</div>';
+            body += '<div class="grid grid-cols-2 gap-4">';
+            body += row('NASLOV', lok);
+            body += row('TIP DOSTOPA', dostop);
+            body += '</div></div>';
+          }
+
+          // 04 DOBAVITELJ (from question 4)
+          var dob = g('si-mat-dobavitelj'), kol = g('si-mat-kolicina');
+          if (dob||kol) {
+            body += '<div><div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-3 pb-1 border-b border-line">04 // DOBAVITELJ SUROVINE</div>';
+            body += '<div class="grid grid-cols-2 gap-4">';
+            body += row('IME DOBAVITELJA (PODJETJE)', dob);
+            body += row('LETNA KOLIČINA (t/leto ali m³/leto)', kol);
+            body += '</div></div>';
+          }
+
+          // 05 KPI
+          var k1 = g('si-kpi1'), k2 = g('si-kpi2');
+          if (k1||k2) {
+            body += '<div><div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-3 pb-1 border-b border-line">05 // KLJUČNI KPI-JI</div>';
+            body += '<div class="grid grid-cols-2 gap-4">';
+            body += row('KPI 1 — OKOLJSKI UČINEK', k1);
+            body += row('KPI 2 — CO₂ PRIHRANKI', k2);
+            body += '</div></div>';
+          }
+
+          // 05 EU skalabilnost
+          var drzave = g('si-eu-drzave'), regija = g('si-eu-regija');
+          if (drzave||regija) {
+            body += '<div><div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-3 pb-1 border-b border-line">06 // EU SKALABILNOST</div>';
+            body += '<div class="grid grid-cols-2 gap-4">';
+            body += row('3 EU DRŽAVE', drzave);
+            body += row('REPLIKACIJSKA REGIJA / ORG.', regija);
+            body += '</div></div>';
+          }
+
+          // 07 Konzorcij — multi-partner
+          var allPartners = window.saGetPartners ? window.saGetPartners() : [];
+          if (!allPartners.length) {
+            var mp = g('si-kons-partner');
+            if (mp) allPartners = [{ org: mp, vloga: g('si-kons-vloga') }];
+          }
+          if (allPartners.length) {
+            body += '<div><div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-3 pb-1 border-b border-line">07 // KONZORCIJSKI PARTNER' + (allPartners.length > 1 ? 'JI (' + allPartners.length + ')' : '') + '</div>';
+            body += '<div class="grid grid-cols-1 gap-1">';
+            allPartners.forEach(function(pt, pi) {
+              body += '<div class="grid grid-cols-2 gap-4' + (pi > 0 ? ' pt-2 border-t border-line' : '') + '">';
+              body += row('ORGANIZACIJA + DRŽAVA', pt.org);
+              body += row('VLOGA V PROJEKTU', pt.vloga);
+              body += '</div>';
+            });
+            body += '</div></div>';
+          }
+
+          // 07 Poslovni model
+          var biz = g('si-biz-vir'), brk = g('si-biz-breakeven');
+          if (biz||brk) {
+            body += '<div><div class="mono text-[9px] tracking-[0.2em] text-inkdim mb-3 pb-1 border-b border-line">08 // POSLOVNI MODEL PO PROJEKTU</div>';
+            body += '<div class="grid grid-cols-2 gap-4">';
+            body += row('VIR PRIHODKOV PO KONCU LIFE', biz);
+            body += row('OCENJENA TOČKA PRELOMA', brk);
+            body += '</div></div>';
+          }
+
+          // Score + proračun
+          var score = (document.getElementById('sa-score-num')||{}).textContent||'?';
+          body += '<div class="rounded-lg px-4 py-3 flex items-center gap-3" style="background:#f0fdf4;border:1px solid #bbf7d0;">'
+            + '<svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>'
+            + '<span class="text-[12px] text-emerald-800 font-medium">Ocena pripravljenosti: <strong>' + score + '/9</strong> — ' + new Date().toLocaleDateString('sl-SI') + '</span>'
+            + '</div>';
+
+          if (!body.trim()) {
+            body = '<p class="text-inkdim text-sm">Izpolni vprašalnik za prikaz podatkov.</p>';
+          }
+
+          document.getElementById('sa-modal-body').innerHTML = body;
+          document.getElementById('sa-modal').classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+
+
+        // Subprogram → EU rate tabela
+        var PF_RATES = {
+          'SP2 ENV':   '60',
+          'SP1 NAT':   '60',
+          'SP3 CLIMA': '60',
+          'SP4 CET':   '95'
+        };
+
+        function pfSubprogramChanged() {
+          var sp   = (document.getElementById('pf-subprogram')||{}).value||'';
+          var rate = document.getElementById('pf-rate');
+          if (rate) {
+            rate.value = PF_RATES[sp] || '60';
+          }
+        }
+
+        // Ključne besede → subprogram
+        function pfGuessSubprogram(text) {
+          var t = text.toLowerCase();
+          // CET — energija
+          if (/energi|solarni|fotovolta|vetrn|obnovlj|biomasa|bioplin|hydrogen|vodik/.test(t)) return 'SP4 CET';
+          // CLIMA — podnebje, CO2, emisije
+          if (/co2|co₂|emisij|podnebj|toplogred|ogljik|metan|karbon|csrd|lca|ogljič/.test(t)) return 'SP3 CLIMA';
+          // NAT — narava, biodiverziteta, voda, ekosistemi
+          if (/narava|biodiverzitet|habitat|natura 2000|ekosistem|ribe|akvakultur|ras system|sladkovod/.test(t)) return 'SP1 NAT';
+          // ENV — krožno gospodarstvo (default za odpadke, predelavo, blato)
+          if (/odpad|reciklir|predelav|krožno|tekstil|plastik|blato|geocomposit|biodizel|biodiesel|komunaln/.test(t)) return 'SP2 ENV';
+          return '';
+        }
+
+        function saModalClose() {
+          document.getElementById('sa-modal').classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+
+        // Close on backdrop click
+        document.getElementById('sa-modal').addEventListener('click', function(e) {
+          if (e.target === this) saModalClose();
+        });
+
+        // ── SHRANI PROJEKT ─────────────────────────────────────
+        function saSaveProjekt() {
+          var p = saCollectForm();
+          if (!p.naziv) { alert('Vnesi vsaj naziv projekta.'); return; }
+          var list = JSON.parse(localStorage.getItem('life_projekti') || '[]');
+          p.id   = Date.now();
+          p.date = new Date().toLocaleDateString('sl-SI');
+          p.score = document.getElementById('sa-score-num') ? document.getElementById('sa-score-num').textContent : '?';
+          list.unshift(p);
+          localStorage.setItem('life_projekti', JSON.stringify(list));
+          saRenderProjekti();
+          saModalClose();
+          var sec = document.getElementById('sa-projekti-section');
+          if (sec) { sec.classList.remove('hidden'); sec.scrollIntoView({behavior:'smooth',block:'start'}); }
+        }
+
+        // Collect data directly from questionnaire SA_INPUTS fields
+        function saCollectFromQuestionnaire() {
+          var g = function(id){ return (document.getElementById(id)||{}).value||''; };
+          // Project name: from modal field if filled, else from sa-input banner text
+          var proracun = g('si-biz-proracun');
+          var naziv = g('sa-input-naziv') || g('pf-naziv') || 'LIFE_PROJEKT_' + new Date().toISOString().slice(0,10);
+          return {
+            naziv:      naziv,
+            subprogram: g('pf-subprogram'),
+            proracun:   g('pf-proracun'),
+            rate:       g('pf-rate') || '60',
+            // From SA_INPUTS questionnaire fields
+            kaj:        (document.getElementById('sa-input-kaj')   ||{}).value || g('pf-kaj'),
+            vhod:       (document.getElementById('sa-input-vhod')||{}).value || g('pf-vhod'),
+            izhod:      g('si-prod-ime') || g('pf-izhod'),
+            lokacija:   g('si-lok-naslov')     || g('pf-lokacija'),
+            partner:    g('si-kons-partner')   || g('pf-partner'),
+            kpi1:       g('si-kpi1')           || g('pf-kpi1'),
+            kpi2:       g('si-kpi2')           || g('pf-kpi2'),
+            trl:        g('si-trl-level'),
+            ip:         g('si-ip-tip'),
+            biznis:     g('si-biz-vir'),
+            proracun:   g('si-biz-proracun'),
+            breakeven:  g('si-biz-breakeven'),
+          };
+        }
+
+        // Create project directly from questionnaire — no modal
+        function saSaveFromQuestionnaire() {
+          var p = saCollectFromQuestionnaire();
+          // Auto-generate naziv if missing
+          if (!p.naziv || p.naziv.startsWith('LIFE_PROJEKT_')) {
+            var kaj = (document.getElementById('sa-input-kaj')||{}).value||'';
+            var subHint = p.subprogram ? p.subprogram.replace('SP2 ','').replace('SP1 ','').replace('SP3 ','').replace('SP4 ','') : 'LIFE';
+            var date = new Date().toISOString().slice(0,7).replace('-','_');
+            p.naziv = (subHint + '_DEMO_' + date).toUpperCase();
+          }
+          p.id    = Date.now();
+          p.date  = new Date().toLocaleDateString('sl-SI');
+          p.score = (document.getElementById('sa-score-num')||{}).textContent || '?';
+          var list = JSON.parse(localStorage.getItem('life_projekti') || '[]');
+          list.unshift(p);
+          localStorage.setItem('life_projekti', JSON.stringify(list));
+          saRenderProjekti();
+          // Visual feedback
+          var btn = document.getElementById('sa-cta-btn');
+          if (btn) {
+            var orig = btn.innerHTML;
+            var origBg = btn.style.background;
+            btn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> PROJEKT KREIRAN';
+            btn.style.background = '#059669';
+            btn.style.boxShadow = '0 0 0 3px rgba(5,150,105,0.25)';
+            setTimeout(function(){
+              btn.innerHTML = orig;
+              btn.style.background = origBg;
+              btn.style.boxShadow = '';
+            }, 2500);
+          }
+          var sec = document.getElementById('sa-projekti-section');
+          if (sec) {
+            sec.classList.remove('hidden');
+            setTimeout(function(){ sec.scrollIntoView({behavior:'smooth',block:'start'}); }, 300);
+          }
+        }
+
+        function saCollectForm() {
+          return {
+            naziv:      (document.getElementById('pf-naziv')     ||{}).value||'',
+            subprogram: (document.getElementById('pf-subprogram')||{}).value||'',
+            proracun:   (document.getElementById('pf-proracun')  ||{}).value||'',
+            rate:       (document.getElementById('pf-rate')      ||{}).value||'60',
+            kaj:        (document.getElementById('pf-kaj')       ||{}).value||'',
+            vhod:       (document.getElementById('pf-vhod')      ||{}).value||'',
+            izhod:      (document.getElementById('pf-izhod')     ||{}).value||'',
+            lokacija:   (document.getElementById('pf-lokacija')  ||{}).value||'',
+            partner:    (document.getElementById('pf-partner')   ||{}).value||'',
+            kpi1:       (document.getElementById('pf-kpi1')      ||{}).value||'',
+            kpi2:       (document.getElementById('pf-kpi2')      ||{}).value||'',
+          };
+        }
+
+        function saRenderProjekti() {
+          var list = JSON.parse(localStorage.getItem('life_projekti') || '[]');
+          var sec  = document.getElementById('sa-projekti-section');
+          var cont = document.getElementById('sa-projekti-list');
+          if (!cont) return;
+          if (!list.length) { if(sec) sec.classList.add('hidden'); return; }
+          if(sec) sec.classList.remove('hidden');
+          cont.innerHTML = list.map(function(p) {
+            return '<div class="card rounded-xl overflow-hidden accent-l" style="border-left-color:#0d9488;cursor:pointer;" onclick="saOpenProjektFromCard(' + p.id + ')">'
+              + '<div class="p-5">'
+              + '<div class="flex items-start justify-between gap-3 mb-3">'
+              + '<div>'
+              + '<div class="mono text-[9px] tracking-[0.2em] text-teal mb-0.5">' + (p.subprogram||'LIFE SAP') + ' // ' + p.date + ' // SCORE: ' + (p.score||'?') + '/9</div>'
+              + '<div class="text-lg font-semibold text-ink">' + (p.naziv||'Brez naziva') + '</div>'
+              + '</div>'
+              + '<div class="flex gap-2 shrink-0" onclick="event.stopPropagation();">'
+              + '<button onclick="saPrintBriefFromCard(' + p.id + ')" title="Izvozi PDF brief" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg mono text-[9px] tracking-wider transition-all" style="background:#0d94881a;color:#0d9488;border:1px solid rgba(13,148,136,0.2);">'
+              + '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>'
+              + 'PDF</button>'
+              + '<button onclick="saDeleteProjekt(' + p.id + ')" title="Izbriši projekt" class="inline-flex items-center px-2 py-1.5 rounded-lg mono text-[9px] transition-all text-inkdim hover:text-red-500 hover:bg-red-50">&#10005;</button>'
+              + '</div></div>'
+              + '<div class="text-[12px] text-inkdim leading-relaxed mb-3">' + (p.kaj||'\u2014') + '</div>'
+              + '<div class="flex flex-wrap gap-x-4 gap-y-1 text-[11px]">'
+              + '<span><span class="text-inkdim">Vhod: </span><strong class="text-ink">' + (p.vhod||'\u2014') + '</strong></span>'
+              + '<span class="text-inkdim">|</span>'
+              + '<span><span class="text-inkdim">Izhod: </span><strong class="text-ink">' + (p.izhod||'\u2014') + '</strong></span>'
+              + '</div>'
+              + (p.kpi1||p.kpi2 ? '<div class="mt-3 pt-3 border-t border-line flex flex-wrap gap-3">'
+                + (p.kpi1 ? '<span class="mono text-[10px] text-teal">\u25b8 ' + p.kpi1 + '</span>' : '')
+                + (p.kpi2 ? '<span class="mono text-[10px] text-teal">\u25b8 ' + p.kpi2 + '</span>' : '')
+                + '</div>' : '')
+              + '<div class="mt-3 pt-2 mono text-[9px] text-inkdim/60">Klikni na kartico za urejanje &bull; Klikni PDF za izvoz</div>'
+              + '</div>'
+              + '</div>';
+          }).join('');
+        }
+
+        function saDeleteProjekt(id) {
+          var list = JSON.parse(localStorage.getItem('life_projekti') || '[]');
+          list = list.filter(function(p){ return p.id !== id; });
+          localStorage.setItem('life_projekti', JSON.stringify(list));
+          saRenderProjekti();
+        }
+
+        // ── PDF BRIEF ──────────────────────────────────────────
+        function saBuildBriefHTML(p) {
+          var now = new Date().toLocaleDateString('sl-SI');
+          var g = function(id){ return (document.getElementById(id)||{}).value||''; };
+
+          // Always enrich from live questionnaire fields
+          if (!p.naziv)     p.naziv     = g('sa-input-naziv') || g('pf-naziv');
+          if (!p.kaj)       p.kaj       = g('sa-input-kaj');
+          if (!p.vhod)      p.vhod      = g('sa-input-vhod');
+          if (!p.izhod)     p.izhod     = g('si-prod-ime');
+          if (!p.lokacija)  p.lokacija  = g('si-lok-naslov');
+          if (!p.trl)       p.trl       = g('si-trl-level');
+          if (!p.trlDoc)    p.trlDoc    = g('si-trl-doc');
+          if (!p.ip)        p.ip        = g('si-ip-tip');
+          if (!p.ipRef)     p.ipRef     = g('si-ip-ref');
+          if (!p.lokDostop) p.lokDostop = g('si-lok-dostop');
+          if (!p.dobavitelj)p.dobavitelj= g('si-mat-dobavitelj');
+          if (!p.kolicina)  p.kolicina  = g('si-mat-kolicina');
+          if (!p.kpi1)      p.kpi1      = g('si-kpi1');
+          if (!p.kpi2)      p.kpi2      = g('si-kpi2');
+          if (!p.drzave)    p.drzave    = g('si-eu-drzave');
+          if (!p.regija)    p.regija    = g('si-eu-regija');
+          if (!p.biznis)    p.biznis    = g('si-biz-vir');
+          if (!p.breakeven) p.breakeven = g('si-biz-breakeven');
+          if (!p.proracun)  p.proracun  = g('si-biz-proracun');
+          if (!p.score)     p.score     = (document.getElementById('sa-score-num')||{}).textContent||'?';
+
+          // Partners
+          var allPartners = window.saGetPartners ? window.saGetPartners() : [];
+          if (!allPartners.length && p.partner) allPartners = [{ org: p.partner, vloga: p.vloga||'' }];
+
+          // Auto-naziv
+          if (!p.naziv || p.naziv.startsWith('LIFE_PROJEKT_')) {
+            p.naziv = p.kaj ? p.kaj.substring(0,60) : 'EU LIFE 2026 Projekt';
+          }
+
+          // Finance: parse proracun preserving original display string
+          var proracunStr = (p.proracun||'').trim();
+          var proracunNum = parseFloat(proracunStr.replace(/\./g,'').replace(',','.')) || 0;
+
+          // Detect subprogram for rates
+          var kajText = ((p.kaj||'') + ' ' + (p.vhod||'')).toLowerCase();
+          var isCET   = /informacij|digital|platforma|it |software|app /.test(kajText);
+          var euRate  = isCET ? 95 : (parseInt(p.rate||60) || 60);
+          var ownRate = 100 - euRate;
+          var fmtN    = function(n){ return n.toLocaleString('sl-SI'); };
+          var euAmt   = proracunNum ? fmtN(Math.round(proracunNum * euRate  / 100)) : '';
+          var ownAmt  = proracunNum ? fmtN(Math.round(proracunNum * ownRate / 100)) : '';
+
+          // Cell builder
+          var cell = function(label, val, accent) {
+            if (!val || val === '-- izberi --') return '';
+            var bg  = accent === 'teal'   ? '#F0FDFA' : accent === 'gold' ? '#FFFBEB' : '#F8FAFC';
+            var col = accent === 'teal'   ? '#0d9488' : accent === 'gold' ? '#92400e' : '#0f172a';
+            var brd = accent === 'teal'   ? 'border-left:3px solid #0d9488;' : '';
+            return '<div style="background:' + bg + ';border-radius:10px;padding:14px;' + brd + '">'
+              + '<div style="font-size:9px;color:#64748b;letter-spacing:.1em;margin-bottom:4px;">' + label + '</div>'
+              + '<div style="font-size:13px;font-weight:' + (accent?'600':'400') + ';color:' + col + ';">' + val + '</div>'
+              + '</div>';
+          };
+          var cell18 = function(label, val, accent) {
+            if (!val) return '';
+            var bg  = accent === 'teal' ? '#F0FDFA' : accent === 'gold' ? '#FFFBEB' : '#F8FAFC';
+            var col = accent === 'teal' ? '#0d9488' : accent === 'gold' ? '#92400e' : '#0f172a';
+            return '<div style="background:' + bg + ';border-radius:10px;padding:14px;">'
+              + '<div style="font-size:9px;color:#64748b;letter-spacing:.1em;margin-bottom:4px;">' + label + '</div>'
+              + '<div style="font-size:18px;font-weight:700;color:' + col + ';">' + val + '</div>'
+              + '</div>';
+          };
+          var grid2 = function(inner){ return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">' + inner + '</div>'; };
+          var grid3 = function(inner){ return '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">' + inner + '</div>'; };
+          var sec   = function(num, title, inner) {
+            return '<div style="margin-bottom:24px;">'
+              + '<div style="font-size:9px;letter-spacing:0.2em;color:#0d9488;font-weight:600;margin-bottom:12px;">' + num + ' // ' + title + '</div>'
+              + inner + '</div>';
+          };
+          var fullCell = function(label, val) {
+            if (!val) return '';
+            return '<div style="background:#F8FAFC;border-radius:10px;padding:16px;margin-bottom:10px;">'
+              + '<div style="font-size:9px;color:#64748b;letter-spacing:.1em;margin-bottom:4px;">' + label + '</div>'
+              + '<div style="font-size:13px;color:#0f172a;">' + val + '</div></div>';
+          };
+
+          var html = '<div style="font-family:Inter,Arial,sans-serif;max-width:680px;margin:0 auto;padding:40px;color:#0f172a;">';
+
+          // Header
+          html += '<div style="border-bottom:2px solid #0d9488;padding-bottom:16px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-end;">';
+          html += '<div><div style="font-size:9px;letter-spacing:0.2em;color:#0d9488;font-weight:600;margin-bottom:4px;">EU LIFE 2026 // PROJEKTNI BRIEF</div>';
+          html += '<div style="font-size:24px;font-weight:700;color:#0f172a;">' + (p.naziv||'Projekt') + '</div></div>';
+          html += '<div style="text-align:right;font-size:10px;color:#94a3b8;line-height:1.6;">';
+          html += '<div>' + (p.subprogram||'LIFE SAP') + '</div>';
+          // proracun se ne prikazuje v headerju — je v 00 // FINANČNI OKVIR
+          html += '<div>Pripravljeno: ' + now + '</div>';
+          html += '<div style="font-size:9px;">DIGILINK za IOT Ekogen</div></div></div>';
+
+          // 00 Finančni okvir
+          html += sec('00', 'FINANČNI OKVIR',
+            grid3(
+              cell18('SKUPNI PRORAČUN', proracunStr ? '€ ' + proracunStr : '—', 'teal') +
+              cell18('EU SOFINANCIRANJE (' + euRate + ' %)', euAmt ? '€ ' + euAmt : euRate + ' %', '') +
+              cell18('LASTNI DELEŽ (' + ownRate + ' %)', ownAmt ? '€ ' + ownAmt : ownRate + ' %', 'gold')
+            )
+          );
+
+          // 01 Tehnologija
+          html += sec('01', 'TEHNOLOGIJA',
+            fullCell('KAJ TEHNOLOGIJA DELA', p.kaj) +
+            grid2(
+              cell('VHODNI MATERIAL', p.vhod) +
+              cell('IZHODNI PRODUKT', p.izhod) +
+              cell('TRL STOPNJA', p.trl) +
+              cell('TRL DOKAZILO', p.trlDoc)
+            )
+          );
+
+          // 02 IP
+          if (p.ip && p.ip !== '-- izberi --') {
+            html += sec('02', 'IP LASTNIŠTVO',
+              grid2(cell('TIP ZAŠČITE', p.ip) + cell('REFERENČNA ŠT. / DOKUMENT', p.ipRef))
+            );
+          }
+
+          // 03 Demo lokacija
+          if (p.lokacija) {
+            html += sec('03', 'DEMO LOKACIJA',
+              grid2(cell('NASLOV', p.lokacija) + cell('TIP DOSTOPA', p.lokDostop))
+            );
+          }
+
+          // 04 Dobavitelj surovine
+          if (p.dobavitelj || p.kolicina) {
+            html += sec('04', 'DOBAVITELJ SUROVINE',
+              grid2(cell('IME DOBAVITELJA (PODJETJE)', p.dobavitelj) + cell('LETNA KOLIČINA (t/leto ali m³/leto)', p.kolicina))
+            );
+          }
+
+          // 05 KPI
+          if (p.kpi1 || p.kpi2) {
+            html += sec('05', 'KLJUČNI KPI-JI',
+              grid2(
+                cell('KPI 1 — OKOLJSKI UČINEK', p.kpi1, 'teal') +
+                cell('KPI 2 — CO₂ PRIHRANKI', p.kpi2, 'teal')
+              )
+            );
+          }
+
+          // 06 EU skalabilnost
+          if (p.drzave || p.regija) {
+            html += sec('06', 'EU SKALABILNOST',
+              grid2(cell('3 EU DRŽAVE', p.drzave) + cell('REPLIKACIJSKA REGIJA / ORG.', p.regija))
+            );
+          }
+
+          // 07 Konzorcijski partnerji
+          if (allPartners.length) {
+            var partInner = '';
+            allPartners.forEach(function(pt, pi) {
+              if (pi > 0) partInner += '<div style="border-top:1px solid #E2E8F0;margin:6px 0;"></div>';
+              partInner += grid2(cell('ORGANIZACIJA + DRŽAVA', pt.org) + cell('VLOGA V PROJEKTU', pt.vloga));
+            });
+            html += sec('07', 'KONZORCIJSKI PARTNER' + (allPartners.length > 1 ? 'JI (' + allPartners.length + ')' : ''), partInner);
+          }
+
+          // 08 Poslovni model
+          if (p.biznis || p.breakeven) {
+            html += sec('08', 'POSLOVNI MODEL PO PROJEKTU',
+              grid2(
+                cell('VIR PRIHODKOV PO KONCU LIFE', p.biznis) +
+                cell('TOČKA PRELOMA', p.breakeven)
+              )
+            );
+          }
+
+          // Score badge
+          html += '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px;margin-bottom:24px;font-size:11px;color:#065f46;">'
+            + '&#10003; Ocena pripravljenosti: <strong>' + (p.score||'?') + '/9</strong> &nbsp;|&nbsp; ' + now + '</div>';
+
+          // Footer
+          html += '<div style="margin-top:32px;padding-top:12px;border-top:1px solid #E2E8F0;display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;">'
+            + '<span>IOT Ekogen • EU LIFE 2026 Projektni brief</span>'
+            + '<span>DIGILINK • www.digilink.si</span></div>';
+
+          html += '</div>';
+          return html;
+        }
+
+        function saPrintBrief() {
+          // Always collect fresh from questionnaire
+          var p = saCollectFromQuestionnaire();
+          if (!p.kaj) {
+            alert('Izpolni vsaj polje "Kaj tehnologija dela" pred izvozom.');
+            return;
+          }
+          saOpenBriefWindow(p);
+        }
+
+        function saPrintBriefFromCard(id) {
+          var list = JSON.parse(localStorage.getItem('life_projekti') || '[]');
+          var p = list.find(function(x){ return x.id === id; });
+          if (!p) return;
+          saOpenBriefWindow(p);
+        }
+
+        function saOpenBriefWindow(p) {
+          var html = '<!DOCTYPE html><html lang="sl"><head>'
+            + '<meta charset="UTF-8">'
+            + '<meta name="viewport" content="width=device-width,initial-scale=1">'
+            + '<title>LIFE 2026 Brief — ' + (p.naziv||'Projekt') + '</title>'
+            + '<style>'
+            + 'body{margin:0;padding:0;background:#fff;font-family:Inter,Arial,sans-serif;color:#0f172a;}'
+            + '@media print{@page{margin:20mm 18mm;size:A4 portrait;}.no-print{display:none!important;}}'
+            + '.brief-wrap{max-width:700px;margin:0 auto;padding:32px 32px;}'
+            + '</style></head><body>'
+            + '<div class="brief-wrap">' + saBuildBriefHTML(p) + '</div>'
+            + '<div class="no-print" style="text-align:center;padding:20px 0 8px;">'
+            + '<button onclick="window.print()" style="background:#0d9488;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;margin-right:8px;">&#128438; Natisni / Shrani PDF</button>'
+            + '<button onclick="window.close()" style="background:#F1F5F9;color:#475569;border:none;padding:10px 20px;border-radius:8px;font-size:13px;cursor:pointer;">Zapri</button>'
+            + '</div>'
+            + '</body></html>';
+          var win = window.open('', '_blank', 'width=800,height=900,scrollbars=yes');
+          if (win) { win.document.write(html); win.document.close(); }
+          else { alert('Dovoli pojavna okna za ta spletni naslov, da se briefe odpre.'); }
+        }
+
+        function saOpenProjektFromCard(id) {
+          var list = JSON.parse(localStorage.getItem('life_projekti') || '[]');
+          var p = list.find(function(x){ return x.id === id; });
+          if (!p) return;
+          // Izpolni formo s podatki iz kartice
+          var fields = ['naziv','subprogram','proracun','rate','kaj','vhod','izhod','lokacija','partner','kpi1','kpi2'];
+          fields.forEach(function(f){
+            var el = document.getElementById('pf-'+f);
+            if (!el) return;
+            if (el.tagName === 'SELECT') el.value = p[f]||'';
+            else el.value = p[f]||'';
+          });
+          // Odpri modal
+          document.getElementById('sa-modal').classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+
+        // Init na load
+        saRenderProjekti();
         </script>
 
         <!-- JS za SA checklist -->
@@ -2314,6 +3100,167 @@
             }
           ];
 
+          // ── Progressive disclosure: input fields per group ──────────────────
+          var SA_INPUTS = {
+            trl: {
+              label: 'Vnesi TRL stopnjo in opis dokazila',
+              fields: [
+                { id:'si-trl-level', type:'select', label:'TRL stopnja ob prijavi',
+                  pfTarget:'', // used only for validation
+                  tip:'<strong>Katera TRL stopnja se ujema z vašim projektom?</strong><br><br><strong style="color:#b91c1c">TRL 1–4</strong> — samo teorija ali laboratorij → LIFE <em>ne</em> financira<br><strong style="color:#b91c1c">TRL 5</strong> — validacija v relevantnem okolju → pod pragom za LIFE<br><strong style="color:#d4af37">TRL 6</strong> — demonstrirana v relevantnem okolju → <strong>minimalni prag LIFE</strong><br><strong style="color:#d4af37">TRL 7</strong> — demo prototip v operativnem okolju → <strong>idealno za prijavo</strong><br><strong style="color:#10b981">TRL 8</strong> — sistem dokončan in kvalificiran → <strong>cilj LIFE projekta</strong><br><br><em>Izberite stopnjo ki jo tehnologija <u>dejansko dosega danes</u>, ne stopnjo ki jo načrtujete doseči.</em>',
+                  options:['-- izberi --','TRL 5 — validacija v relevantnem okolju (pod pragom LIFE)','TRL 6 — demonstrirana v relevantnem okolju (minimalni prag LIFE)','TRL 7 — demo prototip v operativnem okolju (idealno za prijavo)','TRL 8 — sistem dokončan in kvalificiran (cilj projekta dosežen)'] },
+                { id:'si-trl-doc', type:'text', label:'Opis dokazila (npr. testni protokol, certifikat)', pfTarget:'',
+                  tip:'<strong>Kaj vpisati sem?</strong><br><br>CINEA ocenjevalci bodo pri FCC pregledu preverili ali vaša dokazila dejansko ustrezajo prijavljeni TRL stopnji. Vpišite <em>konkretno ime dokumenta</em> ali <em>vrsto dokazila</em>:<br><br>▸ <strong>Testni protokol</strong> — npr. "Testni protokol izventermične predelave tekstila, datum 03/2025, podpis odg. osebe"<br>▸ <strong>Meritve iz realnega okolja</strong> — npr. "Poročilo meritev toplotne prevodnosti (λ = 0,038 W/mK), akreditiran laboratorij"<br>▸ <strong>Certifikat / EN standard</strong> — npr. "CE certifikat EN 13501 za izolacijske plošče"<br>▸ <strong>Foto/video dokumentacija</strong> — npr. "Fotografije naprave med obratovanjem + video zagon (arhiv 2024)"<br>▸ <strong>Poročilo pilotnega testa</strong> — npr. "Interno poročilo pilotnega testa, 500 kg tekstila, julij 2024"<br><br><em>Ne zadostuje: "imamo prototip" ali "testirali smo v laboratoriju". Dokazilo mora biti datirano, podpisano ali uradno.</em>' }
+              ],
+              validate: function(vals) {
+                var lvl = vals['si-trl-level']||'';
+                if (!lvl || lvl.includes('--')) return null;
+                if (lvl.includes('TRL 5')) return { type:'danger', msg:'TRL 5 ne zadostuje za LIFE SAP. Opravi pilotni test na dejanski napravi — tudi manjši test zadostuje za TRL 6. Kontaktiraj akreditiran laboratorij za uradno potrditev.' };
+                if (lvl.includes('TRL 6')) return { type:'warn', msg:'TRL 6 je minimalni prag. CINEA bo pričakoval podrobne meritve in dokumentacijo iz realnega okolja. Pripravi testni protokol z datumom in podpisom odgovorne osebe.' };
+                if (lvl.includes('TRL 7')||lvl.includes('TRL 8')) return { type:'ok', msg:'TRL 7/8 — odlično. To je idealna izhodiščna točka za LIFE SAP. Priloži foto dokumentacijo in meritve k vlogi.' };
+                return null;
+              }
+            },
+            ip: {
+              label: 'Vnesi podatke o IP lastništvu',
+              fields: [
+                { id:'si-ip-tip', type:'select', label:'Tip IP zaščite',
+                  options:['-- izberi --','Patent (registriran)','Ekskluzivna licenčna pogodba','Zaščiteno know-how','V postopku registracije'] },
+                { id:'si-ip-ref', type:'text', label:'Referenčna številka / ime dokumenta', pfTarget:'' }
+              ],
+              validate: function(vals) {
+                var tip = vals['si-ip-tip']||'';
+                if (!tip||tip.includes('--')) return null;
+                if (tip.includes('postopku')) return { type:'warn', msg:'IP v registraciji ob oddaji vloge ni idealno. CINEA bo preveril status med ocenjevanjem. Pohitri postopek ali pripravi pogodbo z lastnikom tehnologije.' };
+                if (tip.includes('Patent')) return { type:'ok', msg:'Registriran patent je najmočnejše dokazilo IP. Navedi patentno številko v Part B vloge — CINEA to pozitivno ovrednoti pri kriteriju Quality & Innovation.' };
+                return { type:'ok', msg:'Dokumentirano IP lastništvo zadostuje za LIFE prijavo. Poskrbi da je pogodba pisna in podpisana s strani obeh zastopnikov.' };
+              }
+            },
+            lokacija: {
+              label: 'Vnesi podatke o demo lokaciji',
+              fields: [
+                { id:'si-lok-naslov', type:'text', label:'Naslov lokacije (ulica, kraj)', pfTarget:'pf-lokacija' },
+                { id:'si-lok-dostop', type:'select', label:'Tip dostopa',
+                  options:['-- izberi --','Lastništvo','Najemna pogodba ≥ 5 let','LoI lastnika (v pripravi)'] }
+              ],
+              validate: function(vals) {
+                var naslov = vals['si-lok-naslov']||'';
+                var dostop = vals['si-lok-dostop']||'';
+                if (naslov && dostop.includes('LoI')) return { type:'warn', msg:'LoI je šibkejši od pogodbe. Za visoko oceno pridobi najemno pogodbo pred oddajo vloge. LoI zadostuje za eligibility, ne pa za FCC.' };
+                if (naslov && dostop.includes('Lastni')) return { type:'ok', msg:'Lastništvo lokacije je najmočnejše dokazilo. Navedi katastrsko številko parcele v vlogi.' };
+                if (naslov && dostop.includes('Najemna')) return { type:'ok', msg:'Najemna pogodba ≥ 5 let zadostuje za LIFE SAP. Poskrbi da pogodba pokriva celotno trajanje projekta (54–60 mesecev).' };
+                return null;
+              }
+            },
+            material: {
+              label: 'Vnesi podatke o dobavitelju surovine',
+              fields: [
+                { id:'si-mat-dobavitelj', type:'text', label:'Ime dobavitelja (podjetje)', pfTarget:'pf-vhod' },
+                { id:'si-mat-kolicina', type:'text', label:'Letna količina (t/leto ali m³/leto)', pfTarget:'' }
+              ],
+              validate: function(vals) {
+                var dob = vals['si-mat-dobavitelj']||'';
+                var kol = parseFloat((vals['si-mat-kolicina']||'').replace(/[^\d.]/g,''));
+                if (!dob) return null;
+                if (kol && kol < 100) return { type:'warn', msg:'Manj kot 100 t/leto je nizka količina za LIFE SAP demonstracijo. CINEA bo preveril ali je obseg zadosten za merljiv okoljski učinek. Razmisli o drugem dobavitelju ali kombinaciji virov.' };
+                if (dob && kol >= 100) return { type:'ok', msg:'Dobavitelj in količina sta identificirana. Naslednji korak: pridobi LoI z navedbo ' + kol + ' t/leto za celotno trajanje projekta.' };
+                if (dob) return { type:'hint', msg:'Navedi letno količino da preverimo ali je obseg primeren za LIFE SAP demonstracijo.' };
+                return null;
+              }
+            },
+            produkt: {
+              label: 'Vnesi podatke o izhodnem produktu',
+              fields: [
+                { id:'si-prod-ime', type:'text', label:'Ime produkta', pfTarget:'pf-izhod' },
+                { id:'si-prod-standard', type:'text', label:'EU standard / certifikat (npr. EN 13501, CE)', pfTarget:'' }
+              ],
+              validate: function(vals) {
+                var ime = vals['si-prod-ime']||'';
+                var std = vals['si-prod-standard']||'';
+                if (!ime) return null;
+                if (!std) return { type:'warn', msg:'Navedi ciljni EU standard. Brez jasne certifikacijske poti CINEA ne bo mogel potrditi "close-to-market" statusa projekta.' };
+                return { type:'ok', msg:'Produkt in standard sta določena. V WP3 vloge načrtuj pridobitev certifikata pri akreditiranem laboratoriju.' };
+              }
+            },
+            kpi: {
+              label: 'Vnesi merljive okoljske KPI-je',
+              fields: [
+                { id:'si-kpi1', type:'text', label:'KPI 1 — količina predelanega materiala (npr. 500 t/leto)', pfTarget:'pf-kpi1' },
+                { id:'si-kpi2', type:'text', label:'KPI 2 — CO₂ prihranki (npr. 1.050 t CO₂eq/leto)', pfTarget:'pf-kpi2' }
+              ],
+              validate: function(vals) {
+                var k1 = vals['si-kpi1']||'', k2 = vals['si-kpi2']||'';
+                if (!k1 && !k2) return null;
+                if (k1 && !k2) return { type:'warn', msg:'Dodaj vsaj še KPI za CO₂ prihranke. CINEA zahteva okoljski in klimatski KPI — samo en KPI zniža oceno pri kriteriju Expected Results.' };
+                if (k1 && k2) return { type:'ok', msg:'Dva KPI-ja definirata merljiv okoljski in klimatski učinek. V vlogi dodaj baseline vrednosti (stanje pred projektom) za vsak KPI.' };
+                return null;
+              }
+            },
+            eu: {
+              label: 'Navedi EU države kjer je ta problem prisoten',
+              fields: [
+                { id:'si-eu-drzave', type:'text', label:'3 EU države (npr. AT, HR, CZ)', pfTarget:'' },
+                { id:'si-eu-regija', type:'text', label:'Konkretna replikacijska regija ali organizacija', pfTarget:'' }
+              ],
+              validate: function(vals) {
+                var d = (vals['si-eu-drzave']||'').split(/[,;\/\s]+/).filter(function(s){ return s.length>=2; });
+                var r = vals['si-eu-regija']||'';
+                if (!d.length) return null;
+                if (d.length < 3) return { type:'warn', msg:'Navedi vsaj 3 EU države za prepričljivo EU Added Value. Trenutno: ' + d.length + '/3. Dodaj še ' + (3-d.length) + ' državo/i.' };
+                if (d.length >= 3 && !r) return { type:'warn', msg:'Dobre 3 države! Dodaj še konkretno organizacijo v tujini ki bi prevzela rešitev — to CINEA ocenjevalci preverijo med field visit.' };
+                if (d.length >= 3 && r) return { type:'ok', msg:'EU dimenzija je dobro definirana: ' + d.join(', ') + '. Replikacijska lokacija: ' + r + '. Navedi tega partnerja v Part B, sekcija Transferability.' };
+                return null;
+              }
+            },
+            konzorcij: {
+              label: 'Vnesi podatke o konzorcijskih partnerjih',
+              multiPartner: true,
+              links: [
+                { label:'F&T Partner Search',  url:'https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/how-to-participate/partner-search',        desc:'Uradna EU baza — po programu, državi, tipu org.' },
+                { label:'LIFE Slovenija NCP',   url:'https://lifeslovenija.si/',                                                                                      desc:'Slovenska baza + objava lastnega profila' },
+                { label:'LIFE Hrvaška',         url:'https://www.haop.hr/hr/podrucja-rada/medunarodni-programi-financiranja/life-program',                           desc:'HR in regionalni partnerji — geografsko blizu' },
+                { label:'LIFE Project Database',url:'https://webgate.ec.europa.eu/life/publicWebsite/search',                                                        desc:'Koordinatorji obstoječih projektov — idealni partnerji' },
+                { label:'EEN',                  url:'https://een.ec.europa.eu/partners',                                                                              desc:'Enterprise Europe Network — za MSP partnerje' },
+                { label:'CORDIS',               url:'https://cordis.europa.eu/projects/en',                                                                          desc:'Akademski in R&D inštituti za validacijo' }
+              ],
+              fields: [
+                { id:'si-kons-partner', type:'text', label:'Ime organizacije + država', pfTarget:'pf-partner' },
+                { id:'si-kons-vloga', type:'select', label:'Vloga partnerja v projektu',
+                  options:['-- izberi --','Validacija rezultatov (univerza/inštitut)','Dobava materiala (zbiralec)','Replikacija rešitve','Demo lokacija v tujini','Financiranje (prevzem lastnega deleža)'] }
+              ],
+              validate: function(vals) {
+                var p = vals['si-kons-partner']||'';
+                var v = vals['si-kons-vloga']||'';
+                if (!p) return null;
+                if (!v||v.includes('--')) return { type:'warn', msg:'Navedi konkretno vlogo partnerja. Partner ki samo "podpiše" LoI brez dejanske vloge CINEA prepozna in oceni negativno.' };
+                if (v.includes('Financiranje')) return { type:'ok', msg:'Partner ki prevzame del lastnega deleža je ključen za IOT Ekogen glede na FCC situacijo (prihodki 2025 = 0). Preveri finančno stabilnost partnerja na AMADEUS bazi.' };
+                return { type:'ok', msg:'Partner z jasno vlogo v projektu — odlično. Pripravi MoU (Memorandum of Understanding) pred oddajo vloge.' };
+              }
+            },
+            biznis: {
+              label: 'Vnesi podatke o poslovnem modelu po projektu',
+              fields: [
+                { id:'si-biz-proracun', type:'text', label:'Skupni proračun projekta (€)',
+                  placeholder:'Npr. 2.600.000',
+                  tip:'<strong>Kako določiti proračun?</strong><br><br>LIFE SAP tipični razpon: <strong>1,5 – 5 mio €</strong><br><br>▸ <strong>SP2 ENV / SP1 NAT / SP3 CLIMA</strong> — EU sofinancira do <strong>60 %</strong> skupnih stroškov<br>▸ <strong>SP4 CET</strong> — EU sofinancira do <strong>95 %</strong><br><br>Primer: skupni proračun 2.600.000 € pri 60 % = <em>1.560.000 € EU + 1.040.000 € lastni delež</em><br><br><em>Vpišite oceno — točen znesek se določi v aplikaciji. Napišite v obliki: 2.600.000</em>', pfTarget:'pf-proracun' },
+                { id:'si-biz-vir', type:'text', label:'Primarni vir prihodkov po koncu LIFE', pfTarget:'' },
+                { id:'si-biz-breakeven', type:'text', label:'Ocenjena točka preloma (npr. M18 po zaključku)', pfTarget:'' }
+              ],
+              validate: function(vals) {
+                var vir = vals['si-biz-vir']||'';
+                var be  = vals['si-biz-breakeven']||'';
+                if (!vir) return null;
+                var months = parseInt((be||'').replace(/[^\d]/g,''));
+                if (months && months > 36) return { type:'warn', msg:'Break-even po M36 je visoko tveganje za CINEA. Razmisli o znižanju OPEX ali zvišanju prodajne cene. CINEA pri cost-effectiveness oceni upošteva hitrost finančne vzdržnosti.' };
+                if (vir && be) return { type:'ok', msg:'After-LIFE plan je definiran. V Part B vloge dodaj preprost ROI graf ki prikaže break-even točko — to CINEA ocenjevalci radi vidijo.' };
+                if (vir) return { type:'hint', msg:'Dodaj ocenjen mesec break-even — to je ključen podatek za CINEA cost-effectiveness kriterij (20 % teže).' };
+                return null;
+              }
+            }
+          };
+
+          var SA_ORDER = ['trl','ip','lokacija','material','produkt','kpi','eu','konzorcij','biznis'];
+
           var container = document.getElementById('sa-items');
           var numEl     = document.getElementById('sa-score-num');
           var barEl     = document.getElementById('sa-bar');
@@ -2323,8 +3270,8 @@
           var resBody   = document.getElementById('sa-result-body');
 
           SA_ITEMS.forEach(function(item, idx){
+            var inputCfg = SA_INPUTS[SA_ORDER[idx]];
             var html = '<div class="sa-group" data-group="'+idx+'">';
-            // Header &#8212; green circle HIDDEN by default, shown only when all 3 subs done
             html += '<div class="flex items-start gap-4 px-6 py-4" style="background:#F8FAFC;border-bottom:1px solid #E2E8F0;">';
             html += '<div class="shrink-0 mt-0.5" style="width:20px;min-width:20px;">';
             html += '<div class="sa-main-indicator" style="display:none;">';
@@ -2337,12 +3284,10 @@
             html += '</div>';
             html += '<p class="text-[11.5px] text-inkdim mt-1 leading-relaxed" style="font-style:italic;">'+item.why+'</p>';
             html += '</div></div>';
-            // Subquestions &#8212; same style as elig-box in to&#269;ka 00: w-5 h-5 rounded border-2 #d4af37
             html += '<div class="divide-y divide-line" style="background:#fff;">';
             item.subs.forEach(function(sub, si){
               html += '<label class="flex items-start gap-4 px-8 py-3 cursor-pointer hover:bg-slate-50/60 transition-colors select-none">';
               html += '<div class="shrink-0 mt-0.5"><input type="checkbox" class="sa-sub-check sr-only" data-group="'+idx+'" data-sub="'+si+'">';
-              // SAME as elig-box: w-5 h-5 rounded border-2 border-color:#d4af37
               html += '<div class="sa-sub-box w-5 h-5 rounded border-2 flex items-center justify-center transition-all" style="border-color:#d4af37;background:#fff;">';
               html += '<svg class="sa-sub-tick w-3 h-3 hidden" style="color:#10b981" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>';
               html += '</div></div>';
@@ -2350,8 +3295,89 @@
               html += '<span class="text-[12px] text-inkdim leading-relaxed eu-term">'+sub.q+'<span class="eu-tip">'+sub.tip+'</span></span>';
               html += '</div></label>';
             });
-            html += '</div></div>';
+            html += '</div>';
+            if (inputCfg) {
+              html += '<div class="sa-input-block" id="sa-ib-'+idx+'" style="overflow:visible;">'; // margins via CSS
+              // Header row: icon + mono label
+              html += '<div class="sa-ib-header">';
+              html += '<svg class="sa-ib-header-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>';
+              html += '<span class="sa-ib-title">'+inputCfg.label+'</span>';
+              html += '</div>';
+              // Fields grid: 2-col when 2+ fields, 1-col otherwise
+              var cols = inputCfg.fields.length > 1 ? 'grid-template-columns:1fr 1fr;' : 'grid-template-columns:1fr;';
+              html += '<div class="sa-ib-grid" style="'+cols+'">';
+              inputCfg.fields.forEach(function(f){
+                html += '<div class="sa-ib-field">';
+                // Label row with optional tooltip icon
+                html += '<div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;">';
+                html += '<label style="font-size:10px;font-weight:600;color:#64748b;letter-spacing:0.04em;text-transform:uppercase;margin:0;" for="'+f.id+'">'+f.label+'</label>';
+                if (f.tip) {
+                  html += '<span class="sa-field-tip" style="position:relative;display:inline-flex;align-items:center;cursor:help;flex-shrink:0;">'
+                    + '<svg style="width:13px;height:13px;color:#94a3b8;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round"/></svg>'
+                    + '<span class="sa-field-tip-bubble" style="display:none;position:absolute;bottom:calc(100% + 8px);left:0;width:320px;max-width:80vw;background:#fff;color:#334155;font-family:Inter,sans-serif;font-size:11px;font-weight:400;line-height:1.55;padding:10px 13px;border-radius:10px;border:1px solid #E2E8F0;border-left:3px solid #0d9488;box-shadow:0 12px 30px -10px rgba(15,23,42,.22);z-index:9999;white-space:normal;text-align:left;">'+f.tip+'</span>'
+                    + '</span>';
+                }
+                html += '</div>';
+                // Input / select
+                if (f.type === 'select') {
+                  html += '<select id="'+f.id+'" onchange="saValidateGroup('+idx+')">';
+                  (f.options||[]).forEach(function(o){ html += '<option>'+o+'</option>'; });
+                  html += '</select>';
+                } else {
+                  html += '<input type="text" id="'+f.id+'" placeholder="'+( f.placeholder||'')+'" onblur="saValidateGroup('+idx+')" oninput="saLivePrefill(event,\''+f.pfTarget+'\','+idx+')">';
+                }
+                html += '</div>';
+              });
+              html += '</div>';
+              // Partner search links (konzorcij only)
+              if (inputCfg.links && inputCfg.links.length) {
+                html += '<div style="margin-top:14px;padding-top:12px;border-top:1px solid #E2E8F0;">';
+                html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">';
+                html += '<svg style="width:13px;height:13px;color:#d4af37;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/></svg>';
+                html += '<span style="font-family:JetBrains Mono,monospace;font-size:9px;letter-spacing:.2em;color:#d4af37;text-transform:uppercase;">BAZE ZA ISKANJE PARTNERJEV //</span>';
+                html += '</div>';
+                html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;">';
+                inputCfg.links.forEach(function(lnk){
+                  html += '<a href="'+lnk.url+'" target="_blank" rel="noopener noreferrer" class="sa-partner-link"'
+                    + ' style="display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:7px;border:1px solid #E2E8F0;background:#fff;text-decoration:none;transition:border-color .15s,box-shadow .15s;">'
+                    + '<span style="font-size:11.5px;font-weight:600;color:#0f172a;display:flex;align-items:center;gap:5px;">'
+                    + lnk.label
+                    + '<svg style="width:10px;height:10px;color:#94a3b8;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>'
+                    + '</span>'
+                    + '<span style="font-size:10px;color:#64748b;line-height:1.4;">'+lnk.desc+'</span>'
+                    + '</a>';
+                });
+                html += '</div></div>';
+              }
+              // Multi-partner: add/remove partner rows
+              if (inputCfg.multiPartner) {
+                html += '<div id="sa-partners-wrap" style="margin-top:10px;border-top:1px solid #E2E8F0;padding-top:10px;">';
+                html += '<div id="sa-partners-list"></div>';
+                html += '<button type="button" onclick="saAddPartner()" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:5px 10px;border-radius:7px;border:1px dashed #d4af37;background:transparent;color:#d4af37;font-family:JetBrains Mono,monospace;font-size:9px;letter-spacing:.15em;cursor:pointer;">'
+                  + '<svg style="width:11px;height:11px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>'
+                  + ' DODAJ PARTNERJA'
+                  + '</button>';
+                html += '</div>';
+              }
+              html += '<div class="sa-validation" id="sa-val-'+idx+'"></div>';
+              html += '</div>';
+            }
+            html += '</div>';
             container.insertAdjacentHTML('beforeend', html);
+          });
+
+          // sa-field-tip hover handler (event delegation on container)
+          container.addEventListener('mouseover', function(e) {
+            var tip = e.target.closest('.sa-field-tip');
+            if (!tip) return;
+            var bubble = tip.querySelector('.sa-field-tip-bubble');
+            if (bubble) bubble.style.display = 'block';
+          });
+          container.addEventListener('mouseout', function(e) {
+            var tip = e.target.closest('.sa-field-tip');
+            if (!tip) return;
+            var bubble = tip.querySelector('.sa-field-tip-bubble');
+            if (bubble) bubble.style.display = 'none';
           });
 
           container.addEventListener('change', function(e){
@@ -2371,24 +3397,148 @@
             var allDone   = Array.from(groupSubs).every(function(c){ return c.checked; });
             var indicator = container.querySelector('.sa-group[data-group="'+gIdx+'"] .sa-main-indicator');
             if(indicator) indicator.style.display = allDone ? 'block' : 'none';
+            // Progressive disclosure — show input block when all 3 checked
+            var ib = document.getElementById('sa-ib-'+gIdx);
+            if (ib) {
+              if (allDone) {
+                ib.classList.add('visible');
+                setTimeout(function(){ ib.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
+              } else {
+                ib.classList.remove('visible');
+              }
+            }
             updateScore();
           });
 
-          function updateScore(){
+          // Validation helper
+  
+        // ── Multi-partner system ─────────────────────────────────
+        var saPartnerCount = 0;
+        window.saAddPartner = function() {
+          var list = document.getElementById('sa-partners-list');
+          if (!list) return;
+          var n = ++saPartnerCount;
+          var row = document.createElement('div');
+          row.id = 'sa-partner-row-' + n;
+          row.style.cssText = 'display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px;';
+          row.innerHTML = ''
+            + '<div>'
+            + '<label style="font-size:10px;font-weight:600;color:#64748b;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:5px;">PARTNER ' + n + ' — ORG. + DRŽAVA</label>'
+            + '<input type="text" id="sa-partner-org-'+n+'" placeholder="Npr. TU Wien (AT)" style="width:100%;padding:8px 11px;border:1px solid #E2E8F0;border-radius:8px;font-size:12.5px;box-sizing:border-box;font-family:Inter,sans-serif;">'
+            + '</div>'
+            + '<div>'
+            + '<label style="font-size:10px;font-weight:600;color:#64748b;letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:5px;">VLOGA V PROJEKTU</label>'
+            + '<select id="sa-partner-vloga-'+n+'" style="width:100%;padding:8px 32px 8px 11px;border:1px solid #E2E8F0;border-radius:8px;font-size:12.5px;box-sizing:border-box;font-family:Inter,sans-serif;appearance:none;background:url(\'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2394a3b8\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpath d=\'M6 9l6 6 6-6\'/%3E%3C/svg%3E\') no-repeat right 10px center #fff;">'
+            + '<option value="">-- izberi --</option>'
+            + '<option>Koordinator (vodilni prijavitelj)</option>'
+            + '<option>Sukoordinator</option>'
+            + '<option>Dobavitelj materiala / surovine</option>'
+            + '<option>Validacijski partner (univerza / inštitut)</option>'
+            + '<option>Replikacijski partner</option>'
+            + '<option>Operativni partner (implementacija)</option>'
+            + '<option>Komunikacijski partner</option>'
+            + '</select>'
+            + '</div>'
+            + '<button type="button" onclick="saRemovePartner(' + n + ')" style="padding:8px;border:none;background:#fef2f2;border-radius:7px;cursor:pointer;color:#b91c1c;flex-shrink:0;">'
+            + '<svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>'
+            + '</button>';
+          list.appendChild(row);
+        };
+        window.saRemovePartner = function(n) {
+          var row = document.getElementById('sa-partner-row-' + n);
+          if (row) row.remove();
+        };
+        // Collect all partners as array
+        window.saGetPartners = function() {
+          var partners = [];
+          // Main fields
+          var mainOrg  = (document.getElementById('si-kons-partner')||{}).value||'';
+          var mainRole = (document.getElementById('si-kons-vloga')||{}).value||'';
+          if (mainOrg) partners.push({ org: mainOrg, vloga: mainRole });
+          // Extra rows
+          for (var i = 1; i <= saPartnerCount; i++) {
+            var orgEl  = document.getElementById('sa-partner-org-'+i);
+            var roleEl = document.getElementById('sa-partner-vloga-'+i);
+            if (orgEl && orgEl.value.trim()) {
+              partners.push({ org: orgEl.value.trim(), vloga: (roleEl||{}).value||'' });
+            }
+          }
+          return partners;
+        };
+
+        window.saValidateGroup = function(gIdx) {
+            var cfg = SA_INPUTS[SA_ORDER[gIdx]];
+            if (!cfg || !cfg.validate) return;
+            var vals = {};
+            cfg.fields.forEach(function(f){ var el=document.getElementById(f.id); if(el) vals[f.id]=el.value||''; });
+            var result = cfg.validate(vals);
+            var valDiv = document.getElementById('sa-val-'+gIdx);
+            if (!valDiv) return;
+            if (!result) { valDiv.style.display='none'; valDiv.innerHTML=''; return; }
+            var typeMap = { ok:'ok', warn:'warn', danger:'danger', hint:'' };
+            var cls = typeMap[result.type]||'';
+            var iconMap = {
+              ok:     '<svg style="width:14px;height:14px;color:#10b981;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>',
+              warn:   '<svg style="width:14px;height:14px;color:#d4af37;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>',
+              danger: '<svg style="width:14px;height:14px;color:#b91c1c;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="M15 9l-6 6M9 9l6 6" stroke-width="2" stroke-linecap="round"/></svg>'
+            };
+            var colorMap = { ok:'#10b981', warn:'#d4af37', danger:'#b91c1c' };
+            var bgMap    = { ok:'#f0fdf4', warn:'#fefce8', danger:'#fef2f2' };
+            var borderMap= { ok:'#10b981', warn:'#d4af37', danger:'#b91c1c' };
+            valDiv.style.display = 'block';
+            valDiv.innerHTML = '<div style="display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:10px 12px;border-radius:8px;background:'+( bgMap[result.type]||'#f8fafc')+';border:1px solid '+(borderMap[result.type]||'#E2E8F0')+';border-left:3px solid '+(borderMap[result.type]||'#0d9488')+';">'
+              + (iconMap[result.type]||'')
+              + '<p style="margin:0;font-size:11.5px;color:#334155;line-height:1.55;">'+result.msg+'</p>'
+              + '</div>';
+          };
+
+          // Live prefill to modal form
+          window.saLivePrefill = function(e, pfTarget, gIdx) {
+            if (!pfTarget) return;
+            var val = e.target ? e.target.value : '';
+            var pfEl = document.getElementById(pfTarget);
+            if (pfEl && !pfEl.dataset.userEdited) pfEl.value = val;
+            // Also run validation
+            saValidateGroup(gIdx);
+          };
+
+          // Mark modal fields as user-edited when manually changed
+          ['pf-kaj','pf-vhod','pf-izhod','pf-lokacija','pf-partner','pf-kpi1','pf-kpi2'].forEach(function(id){
+            var el = document.getElementById(id);
+            if (el) el.addEventListener('input', function(){ this.dataset.userEdited='1'; });
+          });
+
+          window.saUpdateScoreGlobal = function() {
             var total = SA_ITEMS.length, done = 0;
             SA_ITEMS.forEach(function(_, gIdx){
-              var subs = container.querySelectorAll('.sa-sub-check[data-group="'+gIdx+'"]');
+              var subs = document.querySelectorAll('.sa-sub-check[data-group="'+gIdx+'"]');
               if(Array.from(subs).every(function(c){ return c.checked; })) done++;
             });
             var pct = Math.round(done/total*100);
-            numEl.textContent = done;
-            barEl.style.width = pct+'%';
+            if(numEl) { numEl.textContent = done; }
+            if(barEl) { barEl.style.width = pct+'%'; }
+            // CTA button — pulse green when all 9 done, normal teal otherwise
+            var ctaBtn = document.getElementById('sa-cta-btn');
+            if (ctaBtn) {
+              if (done === total) {
+                ctaBtn.style.background = '#059669';
+                ctaBtn.style.boxShadow = '0 0 0 3px rgba(16,185,129,0.25)';
+              } else {
+                ctaBtn.style.background = '#0d9488';
+                ctaBtn.style.boxShadow = '';
+              }
+            }
+            return { done: done, total: total };
+          }
+          function updateScore(){
+            var r = window.saUpdateScoreGlobal();
+            var done = r.done, total = r.total;
             if(done === total){
               verdict.textContent='PROJEKT JE LIFE-READY ✓';
               verdict.style.background='#10b9811a'; verdict.style.color='#059669';
               resBar.style.background='#f0fdf4'; resTitle.style.color='#059669';
-              resTitle.textContent='Odlicno — projekt izpolnjuje vse pogoje LIFE SAP razpisa!';
-              resBody.innerHTML='Naslednji korak: oglej si <a href="#" onclick="document.querySelector(&quot;[data-global=ranking]&quot;)?.click();return false;" class="text-teal hover:underline font-medium">TOP 10 koncepte</a> in preveri kateri najblizje ustreza tvojemu projektu, nato nadaljuj z <a href="#" onclick="document.querySelector(&quot;[data-global=checklist]&quot;)?.click();return false;" class="text-teal hover:underline font-medium">EU LIFE Readiness Checklist</a>.';
+              resTitle.textContent='Odlično — projekt izpolnjuje vse pogoje LIFE SAP razpisa!';
+              resBody.textContent='Klikni KREIRAJ PROJEKT → vnesi podatke in izvozi PDF brief za svetovalca ali NCP.';
             } else if(done >= 6){
               verdict.textContent='V PRIPRAVI — '+done+'/9';
               verdict.style.background='#d4af371a'; verdict.style.color='#b45309';
